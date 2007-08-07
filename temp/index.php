@@ -38,8 +38,8 @@ $v = array();
 require_once('color/truecolor.php');
 require_once('scene/profile.php');
 
-$v['image_scene'] = imagecreatetruecolor(0, 0);
-$v['image_bg'] = imagecreatetruecolor(0, 0);
+$v['image_scn'] = imagecreatetruecolor($v['scene']['res_x'], $v['scene']['res_y']);
+//	$v['image_obj'] = imagecreatetruecolor($v['scene']['res_x'], $v['scene']['res_y']);
 }
 
 ?> 
