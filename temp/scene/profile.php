@@ -11,8 +11,8 @@ $v['scene']['duration'] = 250;		//	count in frames
 
 //	layer info
 $v['scene']['layer_front'] = array(
-	'ratio'		=> 30;				//	??? percentage = 1m
-	'land'		=> 20;				//	scene baseline to layer landline
+	'ratio'		=> 30,				//	??? percentage = 1m
+	'land'		=> 20,				//	scene baseline to layer landline
 	'name'		=> 'Layer Front');
 
 //	object info
@@ -25,7 +25,7 @@ $v['scene']['char_liuyue'] = array(
 			'duration'	=> 250,
 			'words'		=> 'This is only a demo, you retard.',
 			'name'		=> 'Speaking'),
-		'name'		=> 'Action List');
+		'name'		=> 'Action List'),
 	'name'		=> 'Liu Yue');
 
 ?>

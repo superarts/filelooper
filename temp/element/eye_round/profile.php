@@ -17,7 +17,7 @@ $v['eye_round'] = array(
 	'size'			=> 30,		
 	'ball_size'		=> 10,
 	'color'			=> $v['color_white'],
-	'ball_color'	=> $v['color_black'];
+	'ball_color'	=> $v['color_black'],
 	'name'			=> 'Round Eyes');
 
 ?>
