@@ -75,13 +75,14 @@ function calculate_pos($obj, $element, $var)
 	switch ($element_type)
 	{
 	case 'eye':
-		$r = $r * $v[$obj]['head' . $axis['len']] / 100;	//	percentage to cm
+		$r = $r * $v[$obj]['head' . $axis['len']] / 100;		//	percentage to cm
 			echo "calc pos 2: $r\n";
-		$r = $r + $v[$obj]['head' . $axis['pos']];			//	add head pos fix
+		$r = $r + $v[$obj]['head' . $axis['pos']];				//	add head pos fix
 			echo "calc pos 3: $r\n";
-		
-		$r = $r * $v['scene']['res' . $axis['pos']] / 100;	//	put char in scene
+		$r = $r * $v['scene'][$v['scene'][$obj]['layer']]['ratio'] / 100;	//	put char in layer
 			echo "calc pos 4: $r\n";
+		$r = $r * $v['scene']['res' . $axis['pos']] / 100;				//	put char in scene
+			echo "calc pos 5: $r\n";
 		break;
 	default:
 		exit("calculate pos - unknown element type: $element_type");
