@@ -55,10 +55,10 @@ function calc_get_axis($s)
 	return $axis;
 }
 
-function calculate_pos($obj, $element, $var)
+function calculate_pos($obj, $element, $var, $fix = 1)
 {
 	global $v;
-	$r = $v[$element][$var];
+	$r = $v[$element][$var] * $fix;
 	$axis = calc_get_token($var, 2, '_');
 	$axis = calc_get_axis($axis);
 	$element_type = calc_get_token($element, 1, '_');
@@ -81,8 +81,10 @@ function calculate_pos($obj, $element, $var)
 			echo "calc pos 3: $r\n";
 		$r = $r * $v['scene'][$v['scene'][$obj]['layer']]['ratio'] / 100;	//	put char in layer
 			echo "calc pos 4: $r\n";
-		$r = $r * $v['scene']['res' . $axis['pos']] / 100;				//	put char in scene
-			echo "calc pos 5: $r\n";
+        $r = $r + $v['scene'][$obj]['pos' . $axis['pos']];                  //	put char in scene
+		$r = $r * $v['scene']['res' . $axis['pos']] / 100;				
+        echo "calc pos 5: $r\n";
+
 		break;
 	default:
 		exit("calculate pos - unknown element type: $element_type");

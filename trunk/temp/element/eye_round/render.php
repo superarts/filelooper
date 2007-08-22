@@ -16,7 +16,7 @@ function render_eye_round($obj)
 	imagefilledellipse($v['image_scene'], $x, $y, $r, $r, $v['eye_round']['color']);
 	echo "eye round: $x, $y, $r\n";
 
-	$x = 0 - $x;
+	$x = calculate_pos($obj, 'eye_round', 'pos_x', -1);
 
 	imagefilledellipse($v['image_scene'], $x, $y, $r, $r, $v['eye_round']['color']);
 	echo "eye round: $x, $y, $r\n";
