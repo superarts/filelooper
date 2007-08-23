@@ -43,6 +43,9 @@ require_once('scene/profile.php');
 require_once('object/char_liuyue/profile.php');
 require_once('element/eye_round/profile.php');
 require_once('element/eye_round/render.php');
+require_once('calculate/ultility.php');
+require_once('calculate/len.php');
+require_once('calculate/pos.php');
 require_once('calculate/calculate.php');
 
 //	print_r($v);
