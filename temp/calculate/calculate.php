@@ -1,89 +1,82 @@
 <?php
 
-/*
- *	get $i-th substr from $s, of which seperator is $ss
- *
- *	Last char of $s must be $ss if want to get the last substr.
- *	First char of $s should not be $ss.
- *
- */
-function calc_get_token($source, $i, $ss)
-{
-	$s = $source . $ss;
-	$start = 0;
-
-	for ($index = 0; $index < $i; $index++)
-	{
-		$end = strpos($s, $ss, $start);
-		if ($end == 0)
-		{
-			//	echo "get token:	unexcepted ending\n";
-			return $s;
-		}
-		$result = substr($s, $start, $end - $start);
-		//	echo "get token:	$index, $start, $end, $result\n";
-
-		$start = $end + 1;
-	}	//	end of for
-
-	return $result;
-}
-
-function calc_get_axis($s)
-{
-	$axis = array();
-
-	switch ($s)
-	{
-	case 'x':
-	case 'width':
-		$axis['pos'] = '_x';
-		$axis['len'] = '_width';
-		break;
-	case 'y':
-	case 'height':
-		$axis['pos'] = '_y';
-		$axis['len'] = '_height';
-		break;
-	case '':
-	default:
-		$axis['pos'] = '';
-		$axis['len'] = '';
-		//	exit("calculate pos - unknown axis: $axis");
-	}
-
-	return $axis;
-}
-
-function calculate_pos($obj, $element, $var, $fix = 1)
+function calculate_posx($obj, $element, $var, $fix_multi = 1, $fix_plus = 0)
 {
 	global $v;
-	$r = $v[$element][$var] * $fix;
-	$axis = calc_get_token($var, 2, '_');
-	$axis = calc_get_axis($axis);
+
+	if ($fix_multi == 1)
+	{
+		$fix_m = 1;
+	}
+	else
+	{
+		$fix_m = $v[$element][$fix_multi];
+	}
+	if ($fix_plus == 0)
+	{
+		$fix_p = 0;
+	}
+	else
+	{
+		$fix_p = $v[$element][$fix_plus];
+	}
+
+    $r = $v[$element][$var] * $fix_m + $fix_p;
 	$element_type = calc_get_token($element, 1, '_');
-
-	//	echo "calc pos: $obj, $var, $element, $axis, $element_type\n";
-	//	print_r($axis);
-
-	//	print_r($v);
-	//	$temp = 'head' . $axis['len'];
-	//	echo $v[$obj][$temp];
-	
-	echo "calc pos 1: $r\n";
 
 	switch ($element_type)
 	{
 	case 'eye':
-		$r = $r * $v[$obj]['head' . $axis['len']] / 100;		//	percentage to cm
-			echo "calc pos 2: $r\n";
-		$r = $r + $v[$obj]['head' . $axis['pos']];				//	add head pos fix
-			echo "calc pos 3: $r\n";
-		$r = $r * $v['scene'][$v['scene'][$obj]['layer']]['ratio'] / 100;	//	put char in layer
-			echo "calc pos 4: $r\n";
-        $r = $r + $v['scene'][$obj]['pos' . $axis['pos']];                  //	put char in scene
-		$r = $r * $v['scene']['res' . $axis['pos']] / 100;				
-        echo "calc pos 5: $r\n";
+        $r = calc_len_head_x($r, $obj);
+        $r = calc_pos_head_x($r, $obj);         
+        $r = calc_len_layer($r, $obj);         
+        $r = calc_pos_layer_x($r, $obj);        
+        $r = calc_len_scene_x($r);         
+
+		break;
+	default:
+		exit("calculate pos - unknown element type: $element_type");
+	}
+
+	return $r;
+}
+
+function calculate_posy($obj, $element, $var, $fix_multi = 1, $fix_plus = 0)
+{
+	global $v;
+
+	if ($fix_multi == 1)
+	{
+		$fix_m = 1;
+	}
+	else
+	{
+		$fix_m = $v[$element][$fix_multi];
+	}
+	if ($fix_plus == 0)
+	{
+		$fix_p = 0;
+	}
+	else
+	{
+		$fix_p = $v[$element][$fix_plus];
+	}
+
+    $r = $v[$element][$var] * $fix_m + $fix_p;
+	$element_type = calc_get_token($element, 1, '_');
+
+	switch ($element_type)
+	{
+	case 'eye':
+        $r = calc_len_head_y($r, $obj); 
+        $r = calc_pos_head_y($r, $obj);         
+        $r = calc_pos_leg_y($r, $obj);        
+        $r = calc_pos_body_y($r, $obj);         
+        $r = calc_len_layer($r, $obj);
+        $r = calc_pos_layer_y($r, $obj);       
+        $r = calc_pos_land($r, $obj);        
+        $r = calc_len_scene_y($r);         
+        $r = calc_pos_flip_y($r);         
 
 		break;
 	default:
@@ -102,9 +95,10 @@ function calculate_size($obj, $element, $var)
 	switch ($element)	//	($element_type)
 	{
 	case 'eye_round':
-		$r = $r * $v[$obj]['head_width'] / 100;		//	percentage to cm
-		$r = $r * $v['scene'][$v['scene'][$obj]['layer']]['ratio'] / 100;
-		$r = $r * $v['scene']['res_x'] / 100;		//	put char in scene
+	    $r = calc_len_head_x($r, $obj); 
+        $r = calc_len_layer($r, $obj);         
+        $r = calc_len_scene_x($r);         
+
 		break;
 	default:
 		exit("calculate size - unknown lement: $element");

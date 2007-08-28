@@ -8,26 +8,26 @@ function calc_len($x, $y, $z = 100)
 function calc_len_obj($element, $obj, $name, $fix)
 {
     global $v;
-    return calc_len($element, $v[$obj][$name . '_' . $fix);
+    return calc_len($element, $v[$obj][$name . '_' . $fix]);
 }
 
 /*
  * head
  */
 
-function calc_len_head($element, $obj)
+function calc_len_head($element, $obj, $fix)
 {
     return calc_len_obj($element, $obj, 'head', $fix);
 }
 
 function calc_len_head_x($element, $obj)
 {
-    return calc_len_head($element, $obj, 'width']);
+    return calc_len_head($element, $obj, 'width');
 }
 
 function calc_len_head_y($element, $obj)
 {
-    return calc_len_head($element, $obj, 'height']);
+    return calc_len_head($element, $obj, 'height');
 }
 
 /*
@@ -46,7 +46,7 @@ function calc_len_layer($element, $obj)
 function calc_len_scene($element, $fix)
 {
     global $v;
-    return calc_len($element, $v['scene']['res_' . $fix];
+    return calc_len($element, $v['scene']['res_' . $fix]);
 }
 
 function calc_len_scene_x($element)
