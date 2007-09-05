@@ -43,6 +43,7 @@ require_once('scene/profile.php');
 require_once('object/char_liuyue/profile.php');
 require_once('element/eye_round/profile.php');
 require_once('element/eye_round/render.php');
+require_once('scene/render.php');
 require_once('calculate/ultility.php');
 require_once('calculate/len.php');
 require_once('calculate/pos.php');
@@ -53,7 +54,8 @@ require_once('calculate/calculate.php');
 $v['image_scene'] = imagecreatetruecolor($v['scene']['res_x'], $v['scene']['res_y']);
 
 imagefill($v['image_scene'], 0, 0, $v['color_blue']);
-render_eye_round('char_liuyue');
+//  render_object('char_liuyue');
+render_scene();
 
 imagepng($v['image_scene'], 'test.png');
 imagedestroy($v['image_scene']);

@@ -34,7 +34,7 @@ function calculate_posx($obj, $element, $var, $fix_multi = 1, $fix_plus = 0)
         $r = calc_len_scene_x($r);         
 
 		break;
-	default:
+    default:
 		exit("calculate pos - unknown element type: $element_type");
 	}
 

@@ -24,3 +24,4 @@ $v['char_liuyue'] = array(
 	'hair_type'		=> 'hair_div37',
 	'name'			=> 'Liu Yue');
 
+?>
