@@ -5,6 +5,12 @@ function calc_len($x, $y, $z = 100)
     return $x * $y / $z;
 }
 
+/*
+ * example:
+ *      $value, 'char_liuyue', 'head', 'x';
+ *
+ */
+
 function calc_len_obj($element, $obj, $name, $fix)
 {
     global $v;

@@ -9,6 +9,38 @@ $v['scene']['fps'] = 25;
 $v['scene']['subtitle'] = false;	//	render subtitle
 $v['scene']['duration'] = 250;		//	count in frames
 
+$v['liuyue'] = array(
+    'type'      => 'kid',
+    'pos_x'     => 0.5,
+    'pos_y'     => 0.1,
+    'scale'     => 0.5,
+    'body'      => 'blue001',
+    'face'      => 'liuyue001',
+    'eye'       => 'open001',
+    'mouth'     => 'smile001',
+    'name'      => 'Liu Yue');
+
+$v['liuyue_clone'] = array(
+    'type'      => 'kid',
+    'pos_x'     => 0.1,
+    'pos_y'     => 0.1,
+    'scale'     => 0.5,
+    'body'      => 'blue001',
+    'face'      => 'liuyue001',
+    'eye'       => 'open001',
+    'mouth'     => 'smile001',
+    'name'      => 'Liu Yue');
+
+$v['object'] = array(
+    'liuyue',
+    'liuyue_clone');
+
+$v['kid'] = array(
+    'body',
+    'face',
+    'eye',
+    'mouth');
+
 //	layer info
 $v['scene']['layer_front'] = array(
 	'ratio'		=> 30,				//	??? percentage = 1m
