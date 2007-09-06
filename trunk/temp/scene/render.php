@@ -35,18 +35,21 @@ function render_scene()
 
         imagefill($v['image_scene'], 0, 0, $v['color_blue']);
         render_frame($i);
-        $v = $backup;
 
         imagepng($v['image_scene'], get_dest_name($i));
-        imagedestroy($v['image_scene']);
+		imagedestroy($v['image_scene']);
+
+        $v = $backup;
     }
 }
 
 function action_move($name, $part, $x, $y) 
 {
     global $v;
-
-    $v[
+	
+	$v[$name][$part . '_x'] = $x;
+	$v[$name][$part . '_y'] = $y;
+	//	echo "action move: $x, $y\n";
 }
 
 function render_frame($i_frame)
@@ -60,7 +63,7 @@ function render_frame($i_frame)
         $name = $v['object'][$i];
 
         //  event checking
-        for ($i_event = 0; $i_event < count(); $i_event++)
+        for ($i_event = 0; $i_event < count($v[$name]['event']); $i_event++)
         {
             $event_start = $v[$name]['event'][$i_event]['start'];
             $event_start *= $fps;
@@ -84,13 +87,13 @@ function render_frame($i_frame)
                         for ($i_part = 0; $i_part < count($v['set'][$part]); $i_part++)
                         {
                             $p = $v['set'][$part][$i_part];
-                            move($name, $p, $x, $y);
+                            action_move($name, $p, $x, $y);
                         }
                     }
                     else
                     {
                         //  single part
-                        move($name, $p, $x, $y);
+                        action_move($name, $p, $x, $y);
                     }
 
                     break;
@@ -150,6 +153,9 @@ function render_part($name, $part)
     $obj_x = $v['scene']['res_x'] * $scale;
     $obj_y = $obj_x * $part_y / $part_x;
     //  echo "obj size: $obj_x, $obj_y\n";
+
+	$x += $v[$name][$part . '_x'];
+	$y += $v[$name][$part . '_y'];
 
     $x = $x * $v['scene']['res_x'];
     $x = $x - $obj_x / 2;
