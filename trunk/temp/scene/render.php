@@ -1,13 +1,104 @@
 <?php
 
+function get_dest_name($i)
+{
+    global $v;
+
+    $filename = '';
+    $episode = str_pad($v['scene']['episode'], 3, '0', STR_PAD_LEFT);
+    $scene = str_pad($v['scene']['scene'], 5, '0', STR_PAD_LEFT);
+    $index = str_pad($i, 8, '0', STR_PAD_LEFT);
+
+    $filename .= $v['scene']['name'];
+    $filename .= '_' . $episode;
+    $filename .= '_' . $scene;
+    $filename .= '_' . $index;
+    $filename .= '.png';
+
+    return $filename;
+}
+
 function render_scene()
 {
     global $v;
+    $backup = $v;
+
+    $fps = $v['scene']['fps'];
+    $duration = $v['scene']['duration'];
+    $count = $fps * $duration;
+
+    for ($i = 1; $i <= $count; $i++)
+    {
+        //  render scene
+        echo "rendering #$i\n";
+        $v['image_scene'] = imagecreatetruecolor($v['scene']['res_x'], $v['scene']['res_y']);
+
+        imagefill($v['image_scene'], 0, 0, $v['color_blue']);
+        render_frame($i);
+        $v = $backup;
+
+        imagepng($v['image_scene'], get_dest_name($i));
+        imagedestroy($v['image_scene']);
+    }
+}
+
+function action_move($name, $part, $x, $y) 
+{
+    global $v;
+
+    $v[
+}
+
+function render_frame($i_frame)
+{
+    global $v;
+
+    $fps = $v['scene']['fps'];
 
     for ($i = 0; $i < count($v['object']); $i++)
     {
         $name = $v['object'][$i];
 
+        //  event checking
+        for ($i_event = 0; $i_event < count(); $i_event++)
+        {
+            $event_start = $v[$name]['event'][$i_event]['start'];
+            $event_start *= $fps;
+            $event_end = $event_start + $v[$name]['event'][$i_event]['duration'];
+            $event_end *= $fps;
+
+            if (($event_start <= $i_frame) and ($i_frame <= $event_end))
+            {
+                $part = ($v[$name]['event'][$i_event]['part']);
+
+                //  event handling
+                switch ($v[$name]['event'][$i_event]['action'])
+                {
+                case 'move':
+                    $x = ($v[$name]['event'][$i_event]['x']);
+                    $y = ($v[$name]['event'][$i_event]['y']);
+
+                    if (isset($v['set'][$part]) == true)
+                    {
+                        //  parts set
+                        for ($i_part = 0; $i_part < count($v['set'][$part]); $i_part++)
+                        {
+                            $p = $v['set'][$part][$i_part];
+                            move($name, $p, $x, $y);
+                        }
+                    }
+                    else
+                    {
+                        //  single part
+                        move($name, $p, $x, $y);
+                    }
+
+                    break;
+                }
+            }
+        }
+
+        //  render parts
         switch ($v[$name]['type'])
         {
         case 'kid':
@@ -56,8 +147,9 @@ function render_part($name, $part)
     $part_x = $size[0];
     $part_y = $size[1];
 
-    $obj_x = $part_x * $scale;
-    $obj_y = $part_y * $scale;
+    $obj_x = $v['scene']['res_x'] * $scale;
+    $obj_y = $obj_x * $part_y / $part_x;
+    //  echo "obj size: $obj_x, $obj_y\n";
 
     $x = $x * $v['scene']['res_x'];
     $x = $x - $obj_x / 2;

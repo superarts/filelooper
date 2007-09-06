@@ -51,14 +51,7 @@ require_once('calculate/calculate.php');
 
 //	print_r($v);
 
-$v['image_scene'] = imagecreatetruecolor($v['scene']['res_x'], $v['scene']['res_y']);
-
-imagefill($v['image_scene'], 0, 0, $v['color_blue']);
-//  render_object('char_liuyue');
 render_scene();
-
-imagepng($v['image_scene'], 'test.png');
-imagedestroy($v['image_scene']);
 
 }
 
