@@ -43,13 +43,26 @@ function render_scene()
     }
 }
 
-function action_move($name, $part, $x, $y) 
+function action_handler($name, $part, $param) 
 {
     global $v;
-	
-	$v[$name][$part . '_x'] = $x;
-	$v[$name][$part . '_y'] = $y;
-	//	echo "action move: $x, $y\n";
+
+    $action = $param['action'];
+
+    switch ($action)
+    {
+    case 'move':
+        $x = $param['x'];
+        $y = $param['y'];
+
+        $v[$name][$part . '_x'] = $x;
+        $v[$name][$part . '_y'] = 0 - $y;
+        //	echo "action move: $x, $y\n";
+        
+        break;
+    default:
+        exit("unknown action: $action\n");
+    }
 }
 
 function render_frame($i_frame)
@@ -66,60 +79,47 @@ function render_frame($i_frame)
         for ($i_event = 0; $i_event < count($v[$name]['event']); $i_event++)
         {
             $event_start = $v[$name]['event'][$i_event]['start'];
-            $event_start *= $fps;
             $event_end = $event_start + $v[$name]['event'][$i_event]['duration'];
+            $event_start *= $fps;
             $event_end *= $fps;
+            //  echo "event checking: $i_event, $event_start, $event_end, $i_frame\n";
 
-            if (($event_start <= $i_frame) and ($i_frame <= $event_end))
+            if (($event_start <= $i_frame) and ($i_frame < $event_end))
             {
                 $part = ($v[$name]['event'][$i_event]['part']);
 
                 //  event handling
-                switch ($v[$name]['event'][$i_event]['action'])
+                $param = $v[$name]['event'][$i_event];
+
+                if (isset($v['set'][$part]) == true)
                 {
-                case 'move':
-                    $x = ($v[$name]['event'][$i_event]['x']);
-                    $y = ($v[$name]['event'][$i_event]['y']);
-
-                    if (isset($v['set'][$part]) == true)
+                    //  parts set
+                    for ($i_part = 0; $i_part < count($v['set'][$part]); $i_part++)
                     {
-                        //  parts set
-                        for ($i_part = 0; $i_part < count($v['set'][$part]); $i_part++)
-                        {
-                            $p = $v['set'][$part][$i_part];
-                            action_move($name, $p, $x, $y);
-                        }
+                        $p = $v['set'][$part][$i_part];
+                        action_handler($name, $p, $param);
                     }
-                    else
-                    {
-                        //  single part
-                        action_move($name, $p, $x, $y);
-                    }
-
-                    break;
+                }
+                else
+                {
+                    //  single part
+                    action_handler($name, $p, $param);
                 }
             }
         }
 
         //  render parts
-        switch ($v[$name]['type'])
-        {
-        case 'kid':
-            render_kid($name);
-            break;
-        default:
-            exit("render scene - unknown object type");
-        }
+        render_object($v[$name]['type'], $name);
     }
 }
 
-function render_kid($name)
+function render_object($type, $name)
 {
     global $v;
 
-    for ($i = 0; $i < count($v['kid']); $i++)
+    for ($i = 0; $i < count($v[$type]); $i++)
     {
-        render_part($name, $v['kid'][$i]);
+        render_part($name, $v[$type][$i]);
     }
 
     return;
@@ -169,6 +169,7 @@ function render_part($name, $part)
 }
 
 //	TODO: render_object('char_liuyue');
+/*
 function render_object($obj)
 {
     global $v;
@@ -196,13 +197,9 @@ function render_head($obj)
     return;
 }
 
-/*
- * render_face('char_liuyue');
- */
-
 function render_face($obj)
 {
     global $v;
 }
-
+ */
 ?>

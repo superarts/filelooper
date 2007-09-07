@@ -32,12 +32,19 @@ $v['liuyue'] = array(
     'mouth'     => 'smile001',
     'event'     => array(
         array(
-            'start'     => 0,
+            'start'     => 1,
             'action'    => 'move', 
-            'duration'  => 2, 
+            'duration'  => 1, 
             'part'      => 'head', 
-            'x'         => 0.01, 
-			'y'         => 0.01)),
+            'x'         => -0.005, 
+			'y'         => -0.005),
+        array(
+            'start'     => 2.5,
+            'action'    => 'move', 
+            'duration'  => 1, 
+            'part'      => 'head', 
+            'x'         => 0.005, 
+			'y'         => -0.005)),
     'name'      => 'Liu Yue');
 
 $v['liuyue_clone'] = array(
