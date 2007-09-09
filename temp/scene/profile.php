@@ -10,6 +10,10 @@ $v['scene']['fps'] = 10;
 $v['scene']['subtitle'] = false;	//	render subtitle
 $v['scene']['duration'] = 5;		//	count in seconds
 
+$v['render'] = array(
+	'filter' 	=> 'event',			//	all: all frames; event: event only;
+	'name'		=> 'Render Option');
+
 $v['set'] = array(
     'head' 	=> array('face', 'eye', 'mouth'));
 
@@ -30,7 +34,13 @@ $v['liuyue'] = array(
     'face'      => 'liuyue001',
     'eye'       => 'open001',
     'mouth'     => 'smile001',
-    'event'     => array(
+	'event'     => array(
+		array(
+			'start'		=> 1,
+			'action'	=> 'sub',
+			'duration'	=> 0.4,
+			'part'		=> 'mouth',
+			'source'	=> 'smile002'),
         array(
             'start'     => 1,
             'action'    => 'move', 
