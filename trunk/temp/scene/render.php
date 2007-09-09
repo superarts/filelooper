@@ -18,6 +18,52 @@ function get_dest_name($i)
     return $filename;
 }
 
+function event_check($i_frame)
+{
+	global $v;
+	$result = false;
+
+	switch ($v['render']['filter'])
+	{
+	case 'all':
+		$result = true;
+
+		break;
+	case 'event':
+		if ($i_frame == 1)
+		{
+			$result = true;
+		}
+
+		$fps = $v['scene']['fps'];
+
+		for ($i = 0; $i < count($v['object']); $i++)
+		{
+			$name = $v['object'][$i];
+
+			for ($i_event = 0; $i_event < count($v[$name]['event']); $i_event++)
+			{
+				$event_start = $v[$name]['event'][$i_event]['start'];
+				$event_end = $event_start + $v[$name]['event'][$i_event]['duration'];
+				$event_start *= $fps;
+				$event_end *= $fps;
+				//  echo "event checking: $i_event, $event_start, $event_end, $i_frame\n";
+
+				if (($event_start == $i_frame) or ($i_frame == $event_end))
+				{
+					$result = true;
+				}
+			}
+		}
+
+		break;
+	default:
+		exit('event checking - unknown filter');
+	}
+
+	return $result;
+}
+
 function render_scene()
 {
     global $v;
@@ -28,18 +74,25 @@ function render_scene()
     $count = $fps * $duration;
 
     for ($i = 1; $i <= $count; $i++)
-    {
-        //  render scene
-        echo "rendering #$i\n";
-        $v['image_scene'] = imagecreatetruecolor($v['scene']['res_x'], $v['scene']['res_y']);
+	{
+		if (event_check($i) == true)
+		{
+			//  render scene
+			echo "rendering #$i\n";
+			$v['image_scene'] = imagecreatetruecolor($v['scene']['res_x'], $v['scene']['res_y']);
 
-        imagefill($v['image_scene'], 0, 0, $v['color_blue']);
-        render_frame($i);
+			imagefill($v['image_scene'], 0, 0, $v['color_blue']);
+			render_frame($i);
 
-        imagepng($v['image_scene'], get_dest_name($i));
-		imagedestroy($v['image_scene']);
+			imagepng($v['image_scene'], get_dest_name($i));
+			imagedestroy($v['image_scene']);
 
-        $v = $backup;
+			$v = $backup;
+		}
+		else
+		{
+			echo "skipped #$i\n";
+		}
     }
 }
 
@@ -59,7 +112,12 @@ function action_handler($name, $part, $param)
         $v[$name][$part . '_y'] = 0 - $y;
         //	echo "action move: $x, $y\n";
         
-        break;
+		break;
+	case 'sub':
+		$source = $param['source'];
+		$v[$name][$part] = $source;
+
+		break;
     default:
         exit("unknown action: $action\n");
     }
@@ -102,8 +160,8 @@ function render_frame($i_frame)
                 }
                 else
                 {
-                    //  single part
-                    action_handler($name, $p, $param);
+					//  single part
+                    action_handler($name, $part, $param);
                 }
             }
         }

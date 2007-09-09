@@ -39,10 +39,12 @@ if (true)
 $v = array();
 
 require_once('color/truecolor.php');
-require_once('scene/profile.php');
 require_once('object/char_liuyue/profile.php');
 require_once('element/eye_round/profile.php');
 require_once('element/eye_round/render.php');
+require_once('scene/profile.php');
+require_once('scene/script.php');
+require_once('scene/generate.php');
 require_once('scene/render.php');
 require_once('calculate/ultility.php');
 require_once('calculate/len.php');
@@ -51,7 +53,10 @@ require_once('calculate/calculate.php');
 
 //	print_r($v);
 
+generate_script();
 render_scene();
+
+//	$s = calc_get_token('this is a motherfucking test ', 9);	echo "$s\n";
 
 }
 

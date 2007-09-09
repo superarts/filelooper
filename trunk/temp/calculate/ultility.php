@@ -7,7 +7,7 @@
  *	First char of $s should not be $ss.
  *
  */
-function calc_get_token($source, $i, $ss)
+function calc_get_token($source, $i, $ss = ' ')
 {
 	$s = $source . $ss;
 	$start = 0;
