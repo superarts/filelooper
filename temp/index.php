@@ -57,6 +57,7 @@ generate_script();
 render_scene();
 
 //	$s = calc_get_token('this is a motherfucking test ', 9);	echo "$s\n";
+//	$s = get_substr('i said you cannot win ! ', 'said ');	echo "$s\n";
 
 }
 
