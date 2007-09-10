@@ -53,7 +53,38 @@ function generate_script()
 			} while ($s != ($script . ' '));
 
 			break;
-		case 'event':
+		case 'say':
+			$count++;
+			$start = calc_get_token($script, $count);
+			$count++;
+			$count++;
+			$duration = calc_get_token($script, $count);
+			$count++;
+			$action = calc_get_token($script, $count);
+			$count++;
+			$text = script_substr($script, $action . ' ');
+
+			$action = $v['exp'][$action];
+			$text = str_word_count($text, 1, ',;.?!');
+
+			$text_count = count($text);
+			$word_duration = $duration / $text_count;
+
+			for ($i_say = 0; $i_say < $text_count; $i_say++)
+			{
+				$word = $text[$i_say];
+
+				for ($i_word = 0; $i_word < strlen($word); $i++)
+				{
+					$char = $word{$i_word};
+
+					if (isset($v['chinese'][$char]) == true)
+					{
+						$char = $v['chinese'][$char];
+					}
+				}
+			}
+
 			break;
 		default:
 			exit("generate script - unknown script type: $type");
