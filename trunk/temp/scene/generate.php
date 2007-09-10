@@ -65,6 +65,8 @@ function generate_script()
 			$text = script_substr($script, $action . ' ');
 
 			$action = $v['exp'][$action];
+			$text = language_filter($text);
+			//	echo "generate script - text: $text\n";
 			$text = str_word_count($text, 1, ',;.?!');
 
 			$text_count = count($text);
@@ -74,14 +76,21 @@ function generate_script()
 			{
 				$word = $text[$i_say];
 
-				for ($i_word = 0; $i_word < strlen($word); $i++)
+				for ($i_word = 0; $i_word < strlen($word); $i_word++)
 				{
-					$char = $word{$i_word};
+					$char_duration = $word_duration / strlen($word);
 
-					if (isset($v['chinese'][$char]) == true)
-					{
-						$char = $v['chinese'][$char];
-					}
+					$char = $word{$i_word};
+					$char = $v['chinese'][$char];
+
+					$source = $action . $char;
+
+					$v[$name]['event'][count($v[$name]['event'])] = array(
+						'action'	=> 'sub',
+						'start'		=> $start + $i_say * $word_duration + $i_word * $char_duration,
+						'duration'	=> $char_duration,
+						'part'		=> 'mouth',
+						'source'	=> $source);
 				}
 			}
 

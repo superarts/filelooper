@@ -51,15 +51,15 @@ require_once('calculate/len.php');
 require_once('calculate/pos.php');
 require_once('calculate/calculate.php');
 
-//	print_r($v);
-
-//	generate_script();
+generate_script();
 //	render_scene();
+
+print_r($v);
 
 //	$s = calc_get_token('this is a motherfucking test ', 9);	echo "$s\n";
 //	$s = get_substr('i said you cannot win ! ', 'said ');	echo "$s\n";
 //	print_r(str_word_count('this is a , test! ', 1, ',.;?!'));
-$s = language_filter('wo cai bu xiang xin ne ');	echo "$s\n";
+//	$s = language_filter('wo cai bu xiang xin ne ');	echo "$s\n";
 
 }
 
