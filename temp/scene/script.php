@@ -7,7 +7,7 @@
 
 $v['script'] = array(
 	'set liuyue as kid at 0.5 0.1 size 0.5 ',
-	'say liuyue at 1 for 1.5 smile cao ni ma! ');
+	'say liuyue at 1 for 1.5 speak cao ni ma! ');
 
 $v['exp'] = array(
 	'speak'	=> 'speak',

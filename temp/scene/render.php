@@ -47,7 +47,9 @@ function event_check($i_frame)
 				$event_end = $event_start + $v[$name]['event'][$i_event]['duration'];
 				$event_start *= $fps;
 				$event_end *= $fps;
-				//  echo "event checking: $i_event, $event_start, $event_end, $i_frame\n";
+				$event_start = round($event_start);
+				$event_end = round($event_end);
+				//	echo "event checking: $i_event, $event_start, $event_end, $i_frame\n";
 
 				if (($event_start == $i_frame) or ($i_frame == $event_end))
 				{

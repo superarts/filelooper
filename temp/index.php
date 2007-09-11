@@ -37,6 +37,7 @@ if (false)
 if (true)
 {
 $v = array();
+srand(777);
 
 require_once('color/truecolor.php');
 require_once('object/char_liuyue/profile.php');
@@ -52,15 +53,14 @@ require_once('calculate/pos.php');
 require_once('calculate/calculate.php');
 
 generate_script();
-//	render_scene();
+render_scene();
 
-print_r($v);
+//	print_r($v);
 
 //	$s = calc_get_token('this is a motherfucking test ', 9);	echo "$s\n";
 //	$s = get_substr('i said you cannot win ! ', 'said ');	echo "$s\n";
 //	print_r(str_word_count('this is a , test! ', 1, ',.;?!'));
 //	$s = language_filter('wo cai bu xiang xin ne ');	echo "$s\n";
-
 }
 
 ?> 
