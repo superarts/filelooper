@@ -33,14 +33,31 @@ $v['liuyue'] = array(
     'body'      => 'blue001',
     'face'      => 'liuyue001',
     'eye'       => 'open001',
-    'mouth'     => 'smile001',
+	'mouth'     => 'smile001',
+	'habit'		=> array(
+		'speak'		=> array(
+			'move'		=> array(
+				'x_min'		=> 0.02,
+				'x_max'		=> 0.04,
+				'y_min'		=> 0.02,
+				'y_max'		=> 0.04,
+				'rate'		=> 0.5,
+				'last_min'	=> 1,
+				'last_max'	=> 2,
+				'name'		=> 'Habit Move'),
+			'name'		=> 'Habit Speak'),
+		'name'		=> 'Personal Habit'),
 	'event'     => array(
+		/*
+		 * substitute example
+		 *
 		array(
 			'start'		=> 1,
 			'action'	=> 'sub',
 			'duration'	=> 0.4,
 			'part'		=> 'mouth',
 			'source'	=> 'smile002'),
+		 */
         array(
             'start'     => 1,
             'action'    => 'move', 
