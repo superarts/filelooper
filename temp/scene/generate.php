@@ -72,6 +72,7 @@ function generate_script()
 			$text_count = count($text);
 			$word_duration = $duration / $text_count;
 
+			//	adding mouth substitute
 			for ($i_say = 0; $i_say < $text_count; $i_say++)
 			{
 				$word = $text[$i_say];
@@ -91,6 +92,39 @@ function generate_script()
 						'duration'	=> $char_duration,
 						'part'		=> 'mouth',
 						'source'	=> $source);
+				}
+			}
+
+			//	adding habit speaking move
+			$habit = $v[$name]['habit']['speak']['move'];
+			$sign = -1;
+			
+			for ($i_habit = 0; $i_habit < $text_count; $i_habit++)
+			{
+				$rate = $habit['rate'];
+
+				if ($rate >= calc_rand(0, 1))
+				{
+					$x = calc_rand($habit['x_min'], $habit['x_max']);
+					$y = calc_rand($habit['y_min'], $habit['y_max']);
+					$x *= $sign;
+					$y *= -1;
+
+					$sign *= -1;
+					$last = calc_rand($habit['last_min'], $habit['last_max']);
+
+					$v[$name]['event'][count($v[$name]['event'])] = array(
+						'action'	=> 'move',
+						'start'		=> $start + $i_habit * $word_duration,
+						'duration'	=> $last,
+						'part'		=> 'head',
+						'x'			=> $x,
+						'y'			=> $y);
+
+					$last = floor($last) - 1;
+
+					if ($last > 0)
+						$i_habit += $last;
 				}
 			}
 

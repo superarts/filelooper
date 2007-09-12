@@ -1,7 +1,8 @@
 <?php
 
 //	http://38.100.22.210/bbss/forumdisplay.php?fid=17&page=1 jjjj8888:2230177
-
+//	http://www.christophkhouri.com/leo/source.zip
+//
 //	set OBJECT is TYPE at POS_X POS_Y size SCALE
 //	say OBJECT at START for DURATION speak/smile/cry/... SENTENSE
 

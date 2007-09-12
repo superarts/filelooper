@@ -37,11 +37,11 @@ $v['liuyue'] = array(
 	'habit'		=> array(
 		'speak'		=> array(
 			'move'		=> array(
-				'x_min'		=> 0.02,
-				'x_max'		=> 0.04,
-				'y_min'		=> 0.02,
-				'y_max'		=> 0.04,
-				'rate'		=> 0.5,
+				'x_min'		=> 0.002,
+				'x_max'		=> 0.004,
+				'y_min'		=> 0.002,
+				'y_max'		=> 0.004,
+				'rate'		=> 0.8,
 				'last_min'	=> 1,
 				'last_max'	=> 2,
 				'name'		=> 'Habit Move'),
@@ -58,6 +58,9 @@ $v['liuyue'] = array(
 			'part'		=> 'mouth',
 			'source'	=> 'smile002'),
 		 */
+		/*
+		 * move examples
+		 *
         array(
             'start'     => 1,
             'action'    => 'move', 
@@ -71,7 +74,9 @@ $v['liuyue'] = array(
             'duration'  => 1, 
             'part'      => 'head', 
             'x'         => 0.005, 
-			'y'         => -0.005)),
+			'y'         => -0.005)
+		 */
+		),
     'name'      => 'Liu Yue');
 
 $v['liuyue_clone'] = array(
