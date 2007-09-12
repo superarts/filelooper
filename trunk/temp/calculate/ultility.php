@@ -1,5 +1,10 @@
 <?php
 
+function calc_rand($min, $max, $scale = 10000)
+{
+	return rand($min * $scale, $max * $scale) / $scale;
+}
+
 /*
  *	get $i-th substr from $s, of which seperator is $ss
  *
