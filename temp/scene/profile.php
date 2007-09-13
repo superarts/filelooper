@@ -15,7 +15,9 @@ $v['render'] = array(
 	'name'		=> 'Render Option');
 
 $v['set'] = array(
-    'head' 	=> array('face', 'eye', 'mouth'));
+	'head'	 	=> array('face', 'eye', 'mouth'),
+	'kid_all'	=> array('face', 'eye', 'mouth', 'body'),
+	'name'		=> 'Set');
 
 $v['liuyue'] = array(
     'type'      => 'kid',
@@ -46,6 +48,13 @@ $v['liuyue'] = array(
 				'last_max'	=> 2,
 				'name'		=> 'Habit Move'),
 			'name'		=> 'Habit Speak'),
+		'goto'		=> array(
+			'move'		=> array(
+				'y_min'		=> 0.01,
+				'y_max'		=> 0.015,
+				'speed'		=> 2,
+				'name'		=> 'Habit Move'),
+			'name'		=> 'Habit Goto'),
 		'name'		=> 'Personal Habit'),
 	'event'     => array(
 		/*
