@@ -22,8 +22,9 @@ function event_check($i_frame)
 {
 	global $v;
 	$result = false;
+	$filter = $v['render']['filter'];
 
-	switch ($v['render']['filter'])
+	switch ($filter)
 	{
 	case 'all':
 		$result = true;
@@ -60,7 +61,9 @@ function event_check($i_frame)
 
 		break;
 	default:
-		exit('event checking - unknown filter');
+		if ($i_frame == $filter)
+			$result = true;
+		//	exit('event checking - unknown filter');
 	}
 
 	return $result;
@@ -98,7 +101,7 @@ function render_scene()
     }
 }
 
-function action_handler($name, $part, $param) 
+function action_handler($name, $part, $param, $start, $end, $index) 
 {
     global $v;
 
@@ -110,14 +113,40 @@ function action_handler($name, $part, $param)
         $x = $param['x'];
         $y = $param['y'];
 
+		//	smooth move
+		if (isset($param['dest_x']) == true)
+			$dest_x = $param['dest_x'];
+		else
+			$dest_x = $x;
+		if (isset($param['dest_y']) == true)
+			$dest_y = $param['dest_y'];
+		else
+			$dest_y = $y;
+
+		$x += ($dest_x - $x) * ($index - $start) / ($end - $start);
+		$y += ($dest_y - $y) * ($index - $start) / ($end - $start);
+
         $v[$name][$part . '_x'] = $x;
         $v[$name][$part . '_y'] = 0 - $y;
-        //	echo "action move: $x, $y\n";
+        //	echo "action move: $name, $part, $x, $y, $index of $start - $end\n";
         
 		break;
 	case 'sub':
 		$source = $param['source'];
 		$v[$name][$part] = $source;
+
+		break;
+	case 'zoom':
+		$scale = $param['scale'];
+		$scale_to = $param['scale_to'];
+
+		if ($scale == 0)
+			$scale = $v[$name]['scale'];
+		if ($scale_to == 0)
+			$scale_to = $v[$name]['scale'];
+
+		$v[$name]['scale'] = $scale + ($scale_to - $scale) * ($index - $start) / ($end - $start);
+        //	echo "action zoom: $name, $part, $scale, $scale_to, $index of $start - $end\n";
 
 		break;
     default:
@@ -141,30 +170,40 @@ function render_frame($i_frame)
             $event_start = $v[$name]['event'][$i_event]['start'];
             $event_end = $event_start + $v[$name]['event'][$i_event]['duration'];
             $event_start *= $fps;
-            $event_end *= $fps;
-            //  echo "event checking: $i_event, $event_start, $event_end, $i_frame\n";
+			$event_end *= $fps;
+			//	$temp = $event_start - $i_frame;
+            //  echo "event checking: $i_event, $event_start, $event_end, $i_frame, $temp\n";
+			//	if ($event_start == $i_frame) echo "gotcha\n";
 
-            if (($event_start <= $i_frame) and ($i_frame < $event_end))
-            {
-                $part = ($v[$name]['event'][$i_event]['part']);
-
+            if (calc_le($event_start, $i_frame) and ($i_frame < $event_end))
+			{
                 //  event handling
-                $param = $v[$name]['event'][$i_event];
+				$param = $v[$name]['event'][$i_event];
 
-                if (isset($v['set'][$part]) == true)
-                {
-                    //  parts set
-                    for ($i_part = 0; $i_part < count($v['set'][$part]); $i_part++)
-                    {
-                        $p = $v['set'][$part][$i_part];
-                        action_handler($name, $p, $param);
-                    }
-                }
-                else
-                {
-					//  single part
-                    action_handler($name, $part, $param);
-                }
+				//	no 'part' means it's for a whole object
+				if (isset($v[$name]['event'][$i_event]['part']) == false)
+				{
+					action_handler($name, '', $param, $event_start, $event_end, $i_frame);
+				}
+				else
+				{
+					$part = ($v[$name]['event'][$i_event]['part']);
+
+					if (isset($v['set'][$part]) == true)
+					{
+						//  parts set
+						for ($i_part = 0; $i_part < count($v['set'][$part]); $i_part++)
+						{
+							$p = $v['set'][$part][$i_part];
+							action_handler($name, $p, $param, $event_start, $event_end, $i_frame);
+						}
+					}
+					else
+					{
+						//  single part
+						action_handler($name, $part, $param, $event_start, $event_end, $i_frame);
+					}
+				}
             }
         }
 
@@ -222,9 +261,22 @@ function render_part($name, $part)
     $y = (1 - $y) * $v['scene']['res_y'];
     $y = $y - $obj_y;
 
-    $image = imagecreatefrompng($filename);
-    //  echo "copy resized: $x, $y, $obj_x, $obj_y, $part_x, $part_y\n";
-    imagecopyresized($v['image_scene'], $image, $x, $y, 0, 0, $obj_x, $obj_y, $part_x, $part_y);
+	//	print_r($v[$name]);
+    //	echo "render part - copy resized: $name, $part, $x, $y, $obj_x, $obj_y, $part_x, $part_y\n";
+
+	$image = imagecreatefrompng($filename);
+	switch ($v['render']['renderer'])
+	{
+	case 'release':
+		imagecopyresampled($v['image_scene'], $image, $x, $y, 0, 0, $obj_x, $obj_y, $part_x, $part_y);
+		break;
+	case 'debug':
+		imagecopyresized($v['image_scene'], $image, $x, $y, 0, 0, $obj_x, $obj_y, $part_x, $part_y);
+		break;
+	default:
+		exit("unknown renderer");
+	}
+
     imagedestroy($image);
 }
 

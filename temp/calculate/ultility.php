@@ -6,6 +6,20 @@ function calc_rand($min, $max, $scale = 10000)
 }
 
 /*
+ * less than or equal to
+ */
+function calc_le($v1, $v2, $scale = 0.0000001)
+{
+	if ($v1 <= $v2)
+		return true;
+
+	if (($v1 - $v2) < $scale)
+		return true;
+
+	return false;
+}
+
+/*
  *	get $i-th substr from $s, of which seperator is $ss
  *
  *	Last char of $s must be $ss if want to get the last substr.

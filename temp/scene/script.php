@@ -6,11 +6,16 @@
 //	set OBJECT is TYPE at POS_X POS_Y size SCALE
 //	say OBJECT at START for DURATION speak/smile/cry/... SENTENSE
 //	goto OBJECT at START for/stay DURATION walk/jump POS_X POS_Y [for ... to ... for ... to ...]
+//	zoom OBJECT at START for DURATION from SCALE to SCALE_TO
 
 $v['script'] = array(
 	'set liuyue as kid at 0.5 0.1 size 0.5 ',
+	'set liuyue_clone as kid at 0.2 0.2 size 0.1 ',
 	'say liuyue at 1 for 1.5 speak cao ni ma! ',
-	'goto liuyue at 1 for 3 walk 0.5 0.5 ');
+	'say liuyue_clone at 1 for 1.5 speak ni ma bi. ',
+	'zoom liuyue at 0 for 5 from 0.5 to 0.55 ',
+	//	'goto liuyue at 1 for 3 walk 0.1 -0.1 ',
+	'goto liuyue_clone at 1 for 3 walk 0.1 -0.1 ');
 
 $v['exp'] = array(
 	'speak'	=> 'speak',
