@@ -11,7 +11,8 @@ $v['scene']['subtitle'] = false;	//	render subtitle
 $v['scene']['duration'] = 5;		//	count in seconds
 
 $v['render'] = array(
-	'filter' 	=> 'event',			//	all: all frames; event: event only;
+	'filter' 	=> 'all',			//	all: all frames; event: event only; NUMBER: specified frame;
+	'renderer'	=> 'debug',			//	debug: fast but rough; release: slow but smooth;
 	'name'		=> 'Render Option');
 
 $v['set'] = array(
@@ -44,19 +45,30 @@ $v['liuyue'] = array(
 				'y_min'		=> 0.002,
 				'y_max'		=> 0.004,
 				'rate'		=> 0.8,
-				'last_min'	=> 1,
-				'last_max'	=> 2,
+				'last_min'	=> 0.5,
+				'last_max'	=> 1,
 				'name'		=> 'Habit Move'),
 			'name'		=> 'Habit Speak'),
 		'goto'		=> array(
 			'move'		=> array(
-				'y_min'		=> 0.01,
-				'y_max'		=> 0.015,
-				'speed'		=> 2,
+				'y_min'		=> 0.1,
+				'y_max'		=> 0.15,
+				'step'		=> 0.2,
 				'name'		=> 'Habit Move'),
 			'name'		=> 'Habit Goto'),
 		'name'		=> 'Personal Habit'),
 	'event'     => array(
+		/*
+		 * zoom example
+		 *
+		array(
+			'start'		=> 0,
+			'action'	=> 'zoom',
+			'duration'	=> 4,
+			'scale'		=> 0,
+			'scale_to'	=> 0.7,
+			'name'		=> 'Event Zoom Example'),
+		 */
 		/*
 		 * substitute example
 		 *
@@ -76,7 +88,9 @@ $v['liuyue'] = array(
             'duration'  => 1, 
             'part'      => 'head', 
             'x'         => -0.005, 
-			'y'         => -0.005),
+			'y'         => -0.005,
+			'dest_x'	=> -0.005,
+			'dest_y'	=> -0.005),
         array(
             'start'     => 2.5,
             'action'    => 'move', 
@@ -88,25 +102,7 @@ $v['liuyue'] = array(
 		),
     'name'      => 'Liu Yue');
 
-$v['liuyue_clone'] = array(
-    'type'      => 'kid',
-    'pos_x'     => 0.1,
-    'pos_y'     => 0.15,
-    'scale'     => 0.4,
-	'body_x'	=> 0,
-	'body_y'	=> 0,
-	'face_x'	=> 0,
-	'face_y'	=> 0,
-	'eye_x'		=> 0,
-	'eye_y'		=> 0,
-	'mouth_x'	=> 0,
-	'mouth_y'	=> 0,
-    'body'      => 'blue001',
-    'face'      => 'liuyue001',
-    'eye'       => 'open001',
-	'mouth'     => 'smile001',
-	'event'		=> array(),
-    'name'      => 'Liu Yue');
+$v['liuyue_clone'] = $v['liuyue'];
 
 $v['object'] = array(
     'liuyue',

@@ -1,5 +1,243 @@
 <?php
 
+function generate_script_say($name, $script, $count)
+{
+	global $v;
+
+	$count++;
+	$start = calc_get_token($script, $count);
+	$count++;
+	$count++;
+	$duration = calc_get_token($script, $count);
+	$count++;
+	$action = calc_get_token($script, $count);
+	$count++;
+	$text = script_substr($script, $action . ' ');
+
+	$action = $v['exp'][$action];
+	$text = language_filter($text);
+	//	echo "generate script - text: $text\n";
+	$text = str_word_count($text, 1, ',;.?!');
+
+	$text_count = count($text);
+	$word_duration = $duration / $text_count;
+
+	//	adding mouth substitute
+	for ($i_say = 0; $i_say < $text_count; $i_say++)
+	{
+		$word = $text[$i_say];
+
+		for ($i_word = 0; $i_word < strlen($word); $i_word++)
+		{
+			$char_duration = $word_duration / strlen($word);
+
+			$char = $word{$i_word};
+			$char = $v['chinese'][$char];
+
+			$source = $action . $char;
+
+			$v[$name]['event'][count($v[$name]['event'])] = array(
+				'action'	=> 'sub',
+				'start'		=> $start + $i_say * $word_duration + $i_word * $char_duration,
+				'duration'	=> $char_duration,
+				'part'		=> 'mouth',
+				'source'	=> $source);
+		}
+	}
+
+	//	adding habit speaking move
+	$habit = $v[$name]['habit']['speak']['move'];
+	$scale = $v[$name]['scale'];
+	if (rand(0, 1) == 1)
+		$sign = -1;
+	else
+		$sign = 1;
+
+	for ($i_habit = 0; $i_habit < $text_count; $i_habit++)
+	{
+		$rate = $habit['rate'];
+
+		if ($rate >= calc_rand(0, 1))
+		{
+			$x = calc_rand($habit['x_min'], $habit['x_max']);
+			$y = calc_rand($habit['y_min'], $habit['y_max']);
+			$x *= $sign;
+			$y *= -1;
+			$x *= $scale;
+			$y *= $scale;
+
+			$sign *= -1;
+			$last = calc_rand($habit['last_min'], $habit['last_max']);
+
+			$v[$name]['event'][count($v[$name]['event'])] = array(
+				'action'	=> 'move',
+				'start'		=> $start + $i_habit * $word_duration,
+				'duration'	=> $last / 3,
+				'part'		=> 'head',
+				'x'			=> 0,
+				'y'			=> 0,
+				'dest_x'	=> $x,
+				'dest_y'	=> $y,
+				'name'		=> 'Action Move Start');
+
+			$v[$name]['event'][count($v[$name]['event'])] = array(
+				'action'	=> 'move',
+				'start'		=> $start + $i_habit * $word_duration + $last / 3,
+				'duration'	=> $last / 3,
+				'part'		=> 'head',
+				'x'			=> $x,
+				'y'			=> $y,
+				'dest_x'	=> $x,
+				'dest_y'	=> $y,
+				'name'		=> 'Action Move Still');
+
+			$v[$name]['event'][count($v[$name]['event'])] = array(
+				'action'	=> 'move',
+				'start'		=> $start + $i_habit * $word_duration + $last * 2 / 3,
+				'duration'	=> $last / 3,
+				'part'		=> 'head',
+				'x'			=> $x,
+				'y'			=> $y,
+				'dest_x'	=> 0,
+				'dest_y'	=> 0,
+				'name'		=> 'Action Move End');
+
+			$last = floor($last) - 1;	//	floor or round?
+
+			if ($last > 0)
+				$i_habit += $last;
+		}
+	}
+
+	return;
+}
+
+function generate_script_zoom($name, $script, $count)
+{
+	global $v;
+
+	do {
+		$s = calc_get_token($script, $count);
+		$count++;
+		$ss = calc_get_token($script, $count);
+		$count++;
+
+		switch ($s)
+		{
+		case 'at':
+			$start = $ss;
+			break;
+		case 'for':
+			$duration = $ss;
+			break;
+		case 'from':
+			$scale = $ss;
+			break;
+		case 'to':
+			$scale_to = $ss;
+			break;
+		default:
+			exit("generate script zoom - unknown keyword: $s");
+		}
+
+		//	echo "generate script zoom: $s, $ss\n";
+		$s = calc_get_token($script, $count);
+	} while ($s != '');	//	($script . ' '));
+
+	$v[$name]['event'][count($v[$name]['event'])] = array(
+		'action'	=> 'zoom',
+		'start'		=> $start,
+		'duration'	=> $duration,
+		'scale'		=> $scale,
+		'scale_to'	=> $scale_to,
+		'name'		=> 'Event Zoom');
+
+	return;
+}
+
+function generate_script_goto($name, $script, $count)
+{
+	global $v;
+
+	$x = $v[$name]['pos_x'];
+	$y = $v[$name]['pos_y'];
+	$scale = $v[$name]['scale'];
+	$type = $v[$name]['type'];
+	$habit = $v[$name]['habit']['goto']['move'];
+	$step = $habit['step'];
+	$step *= $scale;
+
+	//	at
+	$count++;
+	$start = calc_get_token($script, $count);
+	$count++;
+
+	do {
+		//	move(for) or stay
+		$flag_stay = calc_get_token($script, $count);
+		$count++;
+
+		$duration = calc_get_token($script, $count);
+		$count++;
+
+		//	walk or jump
+		$flag_walk = calc_get_token($script, $count);
+		$count++;
+
+		$dest_x = calc_get_token($script, $count);
+		$count++;
+		$dest_y = calc_get_token($script, $count);
+		$count++;
+
+		$loop = abs($x - $dest_x) / $step;
+		if (($loop < 1) or ($flag_walk == 'jump'))
+			$loop = 1;
+
+		$duration /= $loop;
+		$dest_x /= $loop;
+		$dest_y /= $loop;
+
+		//	echo "script generator goto - name, script, loop: $name, $script, $loop\n";
+
+		for ($i_loop = 0; $i_loop < $loop; $i_loop++)
+		{
+			if ($flag_stay == 'for')
+				$jump = 0 - calc_rand($habit['y_min'], $habit['y_max']) * $scale;	//	jump height
+			else
+				$jump = 0;
+
+			$v[$name]['event'][count($v[$name]['event'])] = array(
+				'action'	=> 'move',
+				'start'		=> $start,
+				'duration'	=> $duration / 2,
+				'part'		=> $type . '_all',
+				'x'			=> $dest_x * $i_loop,
+				'y'			=> $dest_y * $i_loop,
+				'dest_x'	=> $dest_x * ($i_loop + 0.5),
+				'dest_y'	=> $dest_y * ($i_loop + 0.5) + $jump,
+				'name'		=> 'Goto Habit Action Move Start');
+
+			$v[$name]['event'][count($v[$name]['event'])] = array(
+				'action'	=> 'move',
+				'start'		=> $start + $duration / 2,
+				'duration'	=> $duration / 2,
+				'part'		=> $type . '_all',
+				'x'			=> $dest_x * ($i_loop + 0.5),
+				'y'			=> $dest_y * ($i_loop + 0.5) + $jump,
+				'dest_x'	=> $dest_x * ($i_loop + 1),
+				'dest_y'	=> $dest_y * ($i_loop + 1),
+				'name'		=> 'Goto Habit Action Move End');
+
+			$start += $duration;
+		}
+
+		$s = calc_get_token($script, $count);
+		//	echo "s: ($s)\n";
+	} while ($s != '');		//	($s != ($script . ' '));
+
+	return;
+}
+
 function generate_script()
 {
 	global $v;
@@ -54,79 +292,15 @@ function generate_script()
 
 			break;
 		case 'say':
-			$count++;
-			$start = calc_get_token($script, $count);
-			$count++;
-			$count++;
-			$duration = calc_get_token($script, $count);
-			$count++;
-			$action = calc_get_token($script, $count);
-			$count++;
-			$text = script_substr($script, $action . ' ');
+			generate_script_say($name, $script, $count);
 
-			$action = $v['exp'][$action];
-			$text = language_filter($text);
-			//	echo "generate script - text: $text\n";
-			$text = str_word_count($text, 1, ',;.?!');
+			break;
+		case 'goto':
+			generate_script_goto($name, $script, $count);
 
-			$text_count = count($text);
-			$word_duration = $duration / $text_count;
-
-			//	adding mouth substitute
-			for ($i_say = 0; $i_say < $text_count; $i_say++)
-			{
-				$word = $text[$i_say];
-
-				for ($i_word = 0; $i_word < strlen($word); $i_word++)
-				{
-					$char_duration = $word_duration / strlen($word);
-
-					$char = $word{$i_word};
-					$char = $v['chinese'][$char];
-
-					$source = $action . $char;
-
-					$v[$name]['event'][count($v[$name]['event'])] = array(
-						'action'	=> 'sub',
-						'start'		=> $start + $i_say * $word_duration + $i_word * $char_duration,
-						'duration'	=> $char_duration,
-						'part'		=> 'mouth',
-						'source'	=> $source);
-				}
-			}
-
-			//	adding habit speaking move
-			$habit = $v[$name]['habit']['speak']['move'];
-			$sign = -1;
-			
-			for ($i_habit = 0; $i_habit < $text_count; $i_habit++)
-			{
-				$rate = $habit['rate'];
-
-				if ($rate >= calc_rand(0, 1))
-				{
-					$x = calc_rand($habit['x_min'], $habit['x_max']);
-					$y = calc_rand($habit['y_min'], $habit['y_max']);
-					$x *= $sign;
-					$y *= -1;
-
-					$sign *= -1;
-					$last = calc_rand($habit['last_min'], $habit['last_max']);
-
-					$v[$name]['event'][count($v[$name]['event'])] = array(
-						'action'	=> 'move',
-						'start'		=> $start + $i_habit * $word_duration,
-						'duration'	=> $last,
-						'part'		=> 'head',
-						'x'			=> $x,
-						'y'			=> $y);
-
-					$last = floor($last) - 1;
-
-					if ($last > 0)
-						$i_habit += $last;
-				}
-			}
+			break;
+		case 'zoom':
+			generate_script_zoom($name, $script, $count);
 
 			break;
 		default:

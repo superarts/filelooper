@@ -37,7 +37,7 @@ if (false)
 if (true)
 {
 $v = array();
-srand(777);
+srand(1);
 
 require_once('color/truecolor.php');
 require_once('object/char_liuyue/profile.php');
@@ -53,7 +53,7 @@ require_once('calculate/pos.php');
 require_once('calculate/calculate.php');
 
 generate_script();
-render_scene();
+	render_scene();
 
 //	print_r($v);
 
