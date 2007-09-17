@@ -53,7 +53,7 @@ require_once('calculate/pos.php');
 require_once('calculate/calculate.php');
 
 generate_script();
-	render_scene();
+render_scene();
 
 //	print_r($v);
 

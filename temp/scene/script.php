@@ -15,7 +15,7 @@ $v['script'] = array(
 	'say liuyue_clone at 1 for 1.5 speak ni ma bi. ',
 	'zoom liuyue at 0 for 5 from 0.5 to 0.55 ',
 	//	'goto liuyue at 1 for 3 walk 0.1 -0.1 ',
-	'goto liuyue_clone at 1 for 3 walk 0.1 -0.1 ');
+	'goto liuyue_clone at 1 for 2 walk 0.1 -0.1 for 2 walk 0.1 0.1 ',);
 
 $v['exp'] = array(
 	'speak'	=> 'speak',
