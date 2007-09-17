@@ -172,6 +172,9 @@ function generate_script_goto($name, $script, $count)
 	$start = calc_get_token($script, $count);
 	$count++;
 
+	$last_x = 0;
+	$last_y = 0;
+
 	do {
 		//	move(for) or stay
 		$flag_stay = calc_get_token($script, $count);
@@ -206,15 +209,17 @@ function generate_script_goto($name, $script, $count)
 			else
 				$jump = 0;
 
+			//	echo "script generator goto - jump: $jump\n";
+
 			$v[$name]['event'][count($v[$name]['event'])] = array(
 				'action'	=> 'move',
 				'start'		=> $start,
 				'duration'	=> $duration / 2,
 				'part'		=> $type . '_all',
-				'x'			=> $dest_x * $i_loop,
-				'y'			=> $dest_y * $i_loop,
-				'dest_x'	=> $dest_x * ($i_loop + 0.5),
-				'dest_y'	=> $dest_y * ($i_loop + 0.5) + $jump,
+				'x'			=> $last_x + $dest_x * $i_loop,
+				'y'			=> $last_y + $dest_y * $i_loop,
+				'dest_x'	=> $last_x + $dest_x * ($i_loop + 0.5),
+				'dest_y'	=> $last_y + $dest_y * ($i_loop + 0.5) + $jump,
 				'name'		=> 'Goto Habit Action Move Start');
 
 			$v[$name]['event'][count($v[$name]['event'])] = array(
@@ -222,14 +227,18 @@ function generate_script_goto($name, $script, $count)
 				'start'		=> $start + $duration / 2,
 				'duration'	=> $duration / 2,
 				'part'		=> $type . '_all',
-				'x'			=> $dest_x * ($i_loop + 0.5),
-				'y'			=> $dest_y * ($i_loop + 0.5) + $jump,
-				'dest_x'	=> $dest_x * ($i_loop + 1),
-				'dest_y'	=> $dest_y * ($i_loop + 1),
+				'x'			=> $last_x + $dest_x * ($i_loop + 0.5),
+				'y'			=> $last_y + $dest_y * ($i_loop + 0.5) + $jump,
+				'dest_x'	=> $last_x + $dest_x * ($i_loop + 1),
+				'dest_y'	=> $last_y + $dest_y * ($i_loop + 1),
 				'name'		=> 'Goto Habit Action Move End');
 
 			$start += $duration;
 		}
+
+		$last_x += $dest_x * $loop;
+		$last_y += $dest_y * $loop;
+		//	echo "script generator goto - dest and last: $dest_x, $dest_y, $last_x, $last_y\n";
 
 		$s = calc_get_token($script, $count);
 		//	echo "s: ($s)\n";

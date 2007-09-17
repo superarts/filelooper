@@ -104,6 +104,7 @@ $v['liuyue'] = array(
 
 $v['liuyue_clone'] = $v['liuyue'];
 
+//	array order = render order
 $v['object'] = array(
     'liuyue',
     'liuyue_clone');
