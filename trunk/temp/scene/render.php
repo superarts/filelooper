@@ -229,8 +229,11 @@ function render_get_image($name, $part)
     global $v;
 
     //  echo "get image name: $name, $part\n";
-    $filename = $v[$name][$part];
-    $filename = "./image/$part/$filename.png";
+	$filename = $v[$name][$part];
+	if (substr_count($filename, '/') == 0)
+		$filename = "./image/$part/$filename.png";
+	else
+		$filename = "./image/$filename.png";
 
     return $filename;
 }

@@ -16,9 +16,12 @@ $v['render'] = array(
 	'name'		=> 'Render Option');
 
 $v['set'] = array(
-	'head'	 	=> array('face', 'eye', 'mouth'),
-	'kid_all'	=> array('face', 'eye', 'mouth', 'body'),
-	'name'		=> 'Set');
+	'head'	 		=> array('face', 'eye', 'mouth'),
+	'kid_all'		=> array('face', 'eye', 'mouth', 'body'),
+	'sky_all'		=> array('sky'),
+	'ground_all'	=> array('ground'),
+	'building_all'	=> array('building'),
+	'name'			=> 'Set');
 
 /*
  * ojbect list
@@ -40,12 +43,14 @@ $v['kid'] = array(
     'eye',
     'mouth');
 
-$v['bg_school'] = array(
-	'sky',
-	'ground',
-	'building',
-	'flag',
-	'wall');
+$v['sky'] = array(
+	'sky');
+
+$v['ground'] = array(
+	'ground');
+
+$v['building'] = array(
+	'building');
 
 /*
 //	layer info
