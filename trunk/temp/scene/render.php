@@ -42,6 +42,7 @@ function event_check($i_frame)
 		{
 			$name = $v['object'][$i];
 
+			//	echo "event checking: $name\n"; 	//	print_r($v[$name]);
 			for ($i_event = 0; $i_event < count($v[$name]['event']); $i_event++)
 			{
 				$event_start = $v[$name]['event'][$i_event]['start'];
