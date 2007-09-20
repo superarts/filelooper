@@ -1,27 +1,36 @@
 <?php
 
-$v['sky'] = array(
-	'type'		=> 'building',
+$v['sky_sunny'] = array(
+	'type'		=> 'sky',
 	'pos_x'		=> 0.5,
 	'pos_y'		=> 0.01,
 	'scale'		=> 1.3,
+	'sky_x'		=> 0,
+	'sky_y'		=> 0,
 	'sky'		=> 'sky001',
+	'event'		=> array(),
 	'name'		=> 'No. 2 Elementary School Sky');
 
-$v['ground'] = array(
-	'type'		=> 'building',
+$v['ground_normal'] = array(
+	'type'		=> 'ground',
 	'pos_x'		=> 0.5,
 	'pos_y'		=> 0.01,
 	'scale'		=> 1.3,
+	'ground_x'	=> 0,
+	'ground_y'	=> 0,
 	'ground'	=> 'ground001',
+	'event'		=> array(),
 	'name'		=> 'No. 2 Elementary School Ground');
 
-$v['school'] = array(
+$v['school_building'] = array(
 	'type'		=> 'building',
 	'pos_x'		=> 0.5,
 	'pos_y'		=> 0.01,
 	'scale'		=> 1.3,
+	'building_x'	=> 0,
+	'building_y'	=> 0,
 	'building'	=> 'school001',
+	'event'		=> array(),
 	'name'		=> 'No. 2 Elementary School Building');
 
 $v['school_flag'] = array(
@@ -29,7 +38,10 @@ $v['school_flag'] = array(
 	'pos_x'		=> 0.5,
 	'pos_y'		=> 0.01,
 	'scale'		=> 1.3,
+	'building_x'	=> 0,
+	'building_y'	=> 0,
 	'building'	=> 'flag001',
+	'event'		=> array(),
 	'name'		=> 'No. 2 Elementary School Flag');
 
 $v['school_wall'] = array(
@@ -37,7 +49,10 @@ $v['school_wall'] = array(
 	'pos_x'		=> 0.5,
 	'pos_y'		=> 0.01,
 	'scale'		=> 1.3,
-	'building'	=> 'wall001',
+	'building_x'	=> 0,
+	'building_y'	=> 0,
+	'building'	=> 'school_wall001',
+	'event'		=> array(),
 	'name'		=> 'No. 2 Elementary School Wall');
 
 ?>

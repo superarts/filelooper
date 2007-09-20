@@ -27,12 +27,32 @@ if (false)
 	echo "\n";
 	print_r($color_trans);
 	echo "\n";
+
+	print_r($argv);
 }
 
 /*
  * index of libphpct
  *
  */
+
+function parse_command()
+{
+	global $argv;
+	global $v;
+
+	//	print_r($argv);
+
+	//	render all
+	if (in_array('ra', $argv))
+		$v['render']['filter'] = 'all';
+
+	//	render event
+	if (in_array('re', $argv))
+		$v['render']['filter'] = 'event';
+
+	return;	
+}
 
 if (true)
 {
@@ -53,6 +73,7 @@ require_once('calculate/len.php');
 require_once('calculate/pos.php');
 require_once('calculate/calculate.php');
 
+parse_command();
 generate_script();
 render_scene();
 

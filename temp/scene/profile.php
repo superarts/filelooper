@@ -8,10 +8,10 @@ $v['scene']['res_x'] = 1280;
 $v['scene']['res_y'] = 720;
 $v['scene']['fps'] = 10;
 $v['scene']['subtitle'] = false;	//	render subtitle
-$v['scene']['duration'] = 5;		//	count in seconds
+$v['scene']['duration'] = 3;		//	count in seconds
 
 $v['render'] = array(
-	'filter' 	=> 'all',			//	all: all frames; event: event only; NUMBER: specified frame;
+	'filter' 	=> 'event',			//	all: all frames; event: event only; NUMBER: specified frame;
 	'renderer'	=> 'debug',			//	debug: fast but rough; release: slow but smooth;
 	'name'		=> 'Render Option');
 
@@ -30,8 +30,14 @@ $v['set'] = array(
  *
  */
 $v['object'] = array(
-    'liuyue',
-    'liuyue_clone');
+	'sky_sunny',
+	'ground_normal',
+	'school_building',
+	'school_flag',
+	'school_wall'
+	//	'liuyue',
+	//	'liuyue_clone'
+);
 
 /*
  * render part list
