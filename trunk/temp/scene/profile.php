@@ -3,12 +3,18 @@
 //	scene info
 $v['scene']['name'] = 'show';		//	name and episode are for file naming
 $v['scene']['episode'] = 1;			//	which episode of the series
-$v['scene']['scene'] = 1;
+$v['scene']['scene'] = 2;
 $v['scene']['res_x'] = 1280;
 $v['scene']['res_y'] = 720;
 $v['scene']['fps'] = 10;
 $v['scene']['subtitle'] = false;	//	render subtitle
 $v['scene']['duration'] = 3;		//	count in seconds
+
+$scene_index = str_pad($v['scene']['scene'], 5, '0', STR_PAD_LEFT);
+//	echo "scene index: $scene_index\n";
+
+$v['object'] = $v["object_$scene_index"];
+$v['script'] = $v["script_$scene_index"];
 
 $v['render'] = array(
 	'filter' 	=> 'event',			//	all: all frames; event: event only; NUMBER: specified frame;
@@ -21,23 +27,8 @@ $v['set'] = array(
 	'sky_all'		=> array('sky'),
 	'ground_all'	=> array('ground'),
 	'building_all'	=> array('building'),
+	'misc_all'		=> array('item'),
 	'name'			=> 'Set');
-
-/*
- * ojbect list
- *
- * array order = render order
- *
- */
-$v['object'] = array(
-	'sky_sunny',
-	'ground_normal',
-	'school_building',
-	'school_flag',
-	'school_wall'
-	//	'liuyue',
-	//	'liuyue_clone'
-);
 
 /*
  * render part list
@@ -58,6 +49,8 @@ $v['ground'] = array(
 $v['building'] = array(
 	'building');
 
+$v['misc'] = array(
+	'item');
 /*
 //	layer info
 $v['scene']['layer_front'] = array(
