@@ -55,4 +55,15 @@ $v['school_wall'] = array(
 	'event'		=> array(),
 	'name'		=> 'No. 2 Elementary School Wall');
 
+$v['bell_school'] = array(
+	'type'		=> 'misc',
+	'pos_x'		=> 0.5,
+	'pos_y'		=> 0.1,
+	'scale'		=> 0.5,
+	'item'		=> 'bell001',
+	'item_x'	=> 0,
+	'item_y'	=> 0,
+	'event'		=> array(),
+	'name'		=> 'Bell of School');
+
 ?>

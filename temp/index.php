@@ -60,6 +60,7 @@ $v = array();
 srand(1);
 
 require_once('color/truecolor.php');
+require_once('script/ep001.php');
 require_once('object/char_liuyue/profile.php');
 require_once('object/bg_school/profile.php');
 require_once('element/eye_round/profile.php');

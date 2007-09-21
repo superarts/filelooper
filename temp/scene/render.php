@@ -87,7 +87,7 @@ function render_scene()
 			echo "rendering #$i\n";
 			$v['image_scene'] = imagecreatetruecolor($v['scene']['res_x'], $v['scene']['res_y']);
 
-			imagefill($v['image_scene'], 0, 0, $v['color_blue']);
+			imagefill($v['image_scene'], 0, 0, $v['bg_color']);
 			render_frame($i);
 
 			imagepng($v['image_scene'], get_dest_name($i));
