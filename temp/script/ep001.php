@@ -4,40 +4,46 @@
  * scene 2
  */
 
-$v['bg_color'] = $v['color_school_wall'];
+$v['scene_00002'] = array(
+	'duration'	=> 2,
+	'bg_color'	=> $v['color_school_wall'],
 
-$v['object_00002'] = array(
-	'bell_school');
+	'object'	=> array(
+		'bell_school'),
 
-$v['script_00002'] = array(
-	'sub bell_school at 0 for 2 with 2 item bell001 0.1 bell002 0.1 ',
-	);
+	'script'	=> array(
+		'sub bell_school at 0 for 2 with 2 item bell001 0.1 bell002 0.1 ',
+	),
+	'name'		=> 'Scene 2');
 
 /*
  * scene 1
  */
 
-$v['bg_color'] = $v['color_blue'];
+$v['scene_00001'] = array(
+	'duration'	=> 3,
+	'bg_color'	=> $v['color_blue'],
 
-$v['object_00001'] = array(
-	'sky_sunny',
-	'ground_normal',
-	'school_building',
-	'school_flag',
-	'school_wall'
-	//	'liuyue',
-	//	'liuyue_clone'
-);
+	'object'	=> array(
+		'sky_sunny',
+		'ground_normal',
+		'school_building',
+		'school_flag',
+		'school_wall'
+		//	'liuyue',
+		//	'liuyue_clone'
+	),
 
-$v['script_00001'] = array(
-	           'set sky_sunny as sky at 0.5 -0.2 size 1.3 ',
-	    'set ground_normal as ground at 0.5 -0.2 size 1.3 ',
-	'set school_building as building at 0.5 -0.15 size 0.8 ',
-	    'set school_flag as building at 0.5 -0.18 size 0.8 ',
-		'set school_wall as building at 0.5 -0.2 size 1 ',
-	'zoom school_building at 0 for 3 from 0.8 to 0.85 ',
-	'zoom school_flag at 0 for 3 from 0.8 to 0.9 ',
-	'zoom school_wall at 0 for 3 from 1 to 1.1 ');
+	'script'	=> array(
+				   'set sky_sunny as sky at 0.5 -0.2 size 1.3 ',
+			'set ground_normal as ground at 0.5 -0.2 size 1.3 ',
+		'set school_building as building at 0.5 -0.15 size 0.8 ',
+			'set school_flag as building at 0.5 -0.18 size 0.8 ',
+			'set school_wall as building at 0.5 -0.2 size 1 ',
+		'zoom school_building at 0 for 3 from 0.8 to 0.85 ',
+		'zoom school_flag at 0 for 3 from 0.8 to 0.9 ',
+		'zoom school_wall at 0 for 3 from 1 to 1.1 '),
+	'name'		=> 'Episode 1');
 
 //	scene example
 
