@@ -282,7 +282,7 @@ function generate_script_sub($name, $script, $count)
 			exit("generate script sub - unknown keyword: $s");
 		}
 
-			echo "generate script sub: $s, $ss\n";
+		//	echo "generate script sub: $s, $ss\n";
 		$s = calc_get_token($script, $count);
 	} while ($s != '');	//	($script . ' '));
 
