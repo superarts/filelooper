@@ -341,7 +341,7 @@ function generate_script_look($name, $script, $count)
 	}
 
 	$s = "sub $name at $start for $duration with 1 eye $eye $duration ";
-	echo "generate script look - script: $s\n";
+	//	echo "generate script look - script: $s\n";
 	generate_script_sub($name, $s, 3);
 }
 

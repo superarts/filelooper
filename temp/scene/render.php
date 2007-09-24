@@ -267,6 +267,22 @@ function render_part($name, $part)
 
 	//	print_r($v[$name]);
     //	echo "render part - copy resized: $name, $part, $x, $y, $obj_x, $obj_y, $part_x, $part_y\n";
+	$camera_scale = $v['camera']['scale'];
+	$camera_x = $v['camera']['pos_x'] * $v['scene']['res_x'];
+	$camera_y = $v['camera']['pos_y'] * $v['scene']['res_y'];
+	$center_x = $v['scene']['res_x'] * ($v['camera']['center_x'] - $camera_scale / 2);
+	$center_y = $v['scene']['res_y'] * ($v['camera']['center_y'] - $camera_scale / 2);
+
+	$x *= $camera_scale;
+	$y *= $camera_scale;
+	$obj_x *= $camera_scale;
+	$obj_y *= $camera_scale;
+
+	$x += $camera_x;
+	$y += $camera_y;
+
+	$x += $center_x;
+	$y += $center_y;
 
 	$image = imagecreatefrompng($filename);
 	switch ($v['render']['renderer'])
