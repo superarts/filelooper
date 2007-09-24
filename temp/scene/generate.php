@@ -251,6 +251,8 @@ function generate_script_sub($name, $script, $count)
 {
 	global $v;
 
+	//	echo "generate script sub: $script\n";
+
 	do {
 		$s = calc_get_token($script, $count);
 		$count++;
@@ -306,6 +308,41 @@ function generate_script_sub($name, $script, $count)
 	}
 
 	return;
+}
+
+function generate_script_look($name, $script, $count)
+{
+	global $v;
+
+	$count++;
+	$start = calc_get_token($script, $count);
+	$count++;
+	$count++;
+	$duration = calc_get_token($script, $count);
+	$count++;
+	$count++;
+	$direction = calc_get_token($script, $count);
+	$count++;
+
+	$eye = $v[$name]['eye'];
+	$eye = substr($eye, 0, -3);
+
+	switch ($direction)
+	{
+	case '180':		//	left
+		$eye .= '180';
+		break;
+	case '0':		//	right
+	case '360':
+		$eye .= '360';
+		break;
+	default:
+		exit("generate script look - unknown direction: $direction");
+	}
+
+	$s = "sub $name at $start for $duration with 1 eye $eye $duration ";
+	echo "generate script look - script: $s\n";
+	generate_script_sub($name, $s, 3);
 }
 
 function generate_script()
@@ -375,6 +412,10 @@ function generate_script()
 			break;
 		case 'sub':
 			generate_script_sub($name, $script, $count);
+
+			break;
+		case 'look':
+			generate_script_look($name, $script, $count);
 
 			break;
 		default:

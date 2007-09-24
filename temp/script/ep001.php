@@ -47,36 +47,41 @@ $v['scene_00001'] = array(
 
 //	scene example
 
-/*
- * object list
- *
- * array order = render order
- *
- */
-$v['object_00000'] = array(
-	//	'liuyue',
-	//	'liuyue_clone'
-);
+$v['scene_00000'] = array(
+	'duration'	=> 5,
+	'bg_color'	=> $v['color_blue'],
 
-//	http://38.100.22.210/bbss/forumdisplay.php?fid=17&page=1 jjjj8888:2230177
-//	http://www.christophkhouri.com/leo/source.zip
-//
-//	set OBJECT is TYPE at POS_X POS_Y size SCALE
-//	say OBJECT at START for DURATION speak/smile/cry/... SENTENSE
-//	goto OBJECT at START for/stay DURATION walk/jump POS_X POS_Y [for ... to ... for ... to ...]
-//	zoom OBJECT at START for DURATION from SCALE to SCALE_TO
-//	sub OBJECT at START for DURATION with COUNT PART [SOURCEx DELAYx]
-
-$v['script_00000'] = array(
 	/*
-	'set liuyue as kid at 0.5 0.1 size 0.5 ',
-	'set liuyue_clone as kid at 0.2 0.2 size 0.1 ',
-	'say liuyue at 1 for 1.5 speak cao ni ma! ',
-	'say liuyue_clone at 1 for 1.5 speak ni ma bi. ',
-	'zoom liuyue at 0 for 5 from 0.5 to 0.55 ',
-	//	'goto liuyue at 1 for 3 walk 0.1 -0.1 ',
-	'goto liuyue_clone at 1 for 2 walk 0.1 -0.1 for 2 walk 0.1 0.1 '
+	 * object list
+	 *
+	 * array order = render order
+	 *
 	 */
-	);
+	'object'	=> array(
+		'liuyue',
+		'liuyue_clone'
+	),
+
+	//	http://38.100.22.210/bbss/forumdisplay.php?fid=17&page=1 jjjj8888:2230177
+	//	http://www.christophkhouri.com/leo/source.zip
+	//
+	//	set OBJECT is TYPE at POS_X POS_Y size SCALE
+	//	say OBJECT at START for DURATION speak/smile/cry/... SENTENSE
+	//	goto OBJECT at START for/stay DURATION walk/jump POS_X POS_Y [for ... to ... for ... to ...]
+	//	zoom OBJECT at START for DURATION from SCALE to SCALE_TO
+	//	sub OBJECT at START for DURATION with COUNT PART [SOURCEx DELAYx]
+	//		look OBJECT at START for DURATION to DIRECTION(0-360) 
+
+	'script'	=> array(
+		'set liuyue as kid at 0.5 0.1 size 0.5 ',
+		'set liuyue_clone as kid at 0.2 0.2 size 0.1 ',
+		'say liuyue at 1 for 1.5 speak cao ni ma! ',
+		'say liuyue_clone at 1 for 1.5 speak ni ma bi. ',
+		'zoom liuyue at 0 for 5 from 0.5 to 0.55 ',
+		'look liuyue at 1 for 1 to 360 ',
+		//	'goto liuyue at 1 for 3 walk 0.1 -0.1 ',
+		'goto liuyue_clone at 1 for 2 walk 0.1 -0.1 for 2 walk 0.1 0.1 '
+	),
+);
 
 ?>
