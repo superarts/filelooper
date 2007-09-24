@@ -10,6 +10,13 @@ $v['scene']['fps'] = 10;
 $v['scene']['subtitle'] = false;	//	render subtitle
 $v['scene']['duration'] = 3;		//	count in seconds
 
+//	camera is using screen axis system, while scene is using 'human axis system'
+$v['camera']['pos_x'] = 0;
+$v['camera']['pos_y'] = 0;
+$v['camera']['center_x'] = 0.75;
+$v['camera']['center_y'] = 0.75;
+$v['camera']['scale'] = 0.5;
+
 $scene_index = str_pad($v['scene']['scene'], 5, '0', STR_PAD_LEFT);
 //	echo "scene index: $scene_index\n";
 
