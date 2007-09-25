@@ -1,12 +1,29 @@
 <?php
 
 /*
+ * An Empty Scene
+ *
+$v['scene_00002'] = array(
+	'duration'	=> ,
+	'bg_color'	=> $v['color_blue'],
+	'camera'	=> array(
+		),
+	'object'	=> array(
+		),
+	'script'	=> array(
+		),
+	'name'		=> 'Scene ');
+ *
+ */
+
+/*
  * scene 2
  */
 
 $v['scene_00002'] = array(
 	'duration'	=> 2,
 	'bg_color'	=> $v['color_school_wall'],
+	'camera'	=> array(),
 
 	'object'	=> array(
 		'bell_school'),
@@ -21,8 +38,11 @@ $v['scene_00002'] = array(
  */
 
 $v['scene_00001'] = array(
-	'duration'	=> 3,
+	'duration'	=> 6,
 	'bg_color'	=> $v['color_blue'],
+	'camera'	=> array(
+		array(0, 0, 0.5, 0.5, 1, 6),
+		array(0, 0, 0.4, 0.45, 1.1, 0)),
 
 	'object'	=> array(
 		'sky_sunny',
@@ -40,9 +60,9 @@ $v['scene_00001'] = array(
 		'set school_building as building at 0.5 -0.15 size 0.8 ',
 			'set school_flag as building at 0.5 -0.18 size 0.8 ',
 			'set school_wall as building at 0.5 -0.2 size 1 ',
-		'zoom school_building at 0 for 3 from 0.8 to 0.85 ',
-		'zoom school_flag at 0 for 3 from 0.8 to 0.9 ',
-		'zoom school_wall at 0 for 3 from 1 to 1.1 '),
+		'zoom school_building at 0 for 6 from 0.8 to 0.85 ',
+		'zoom school_flag at 0 for 6 from 0.8 to 0.9 ',
+		'zoom school_wall at 0 for 6 from 1 to 1.1 '),
 	'name'		=> 'Episode 1');
 
 //	scene example
@@ -50,6 +70,11 @@ $v['scene_00001'] = array(
 $v['scene_00000'] = array(
 	'duration'	=> 5,
 	'bg_color'	=> $v['color_blue'],
+	'camera'	=> array(
+		array(0, 0, 0.5, 0.5, 0.7, 2),
+		array(0, 0, 0.5, 0.5, 1, 3),
+		array(0, 0, 0.5, 0.5, 1, 0),
+	),
 
 	/*
 	 * object list
