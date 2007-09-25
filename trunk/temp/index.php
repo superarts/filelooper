@@ -42,6 +42,7 @@ function parse_command()
 	global $v;
 
 	//	print_r($argv);
+	$flip = array_flip($argv);
 
 	//	render all
 	if (in_array('ra', $argv))
@@ -50,6 +51,18 @@ function parse_command()
 	//	render event
 	if (in_array('re', $argv))
 		$v['render']['filter'] = 'event';
+
+	//	render frame: r frame_index
+	if (in_array('r', $argv))
+		$v['render']['filter'] = $argv[$flip['r'] + 1];
+
+	//	renderer smooth
+	if (in_array('rs', $argv))
+		$v['render']['renderer'] = 'release';
+
+	//	renderer fast
+	if (in_array('rf', $argv))
+		$v['render']['renderer'] = 'debug';
 
 	return;	
 }

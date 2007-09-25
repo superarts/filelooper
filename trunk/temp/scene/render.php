@@ -79,7 +79,7 @@ function render_scene()
     $duration = $v['scene']['duration'];
     $count = $fps * $duration;
 
-    for ($i = 1; $i <= $count; $i++)
+    for ($i = 1; $i < $count; $i++)
 	{
 		if (event_check($i) == true)
 		{
@@ -155,11 +155,62 @@ function action_handler($name, $part, $param, $start, $end, $index)
     }
 }
 
+function calc_get_gradual($start, $end, $index, $count)
+{
+	return $start + ($end - $start) * $index / $count;
+}
+
+function camera_handler($i_frame)
+{
+	global $v;
+
+	$fps = $v['scene']['fps'];
+	$camera = $v['camera_script'];
+	$start = 0;
+
+	for ($i = 0; ($i < count($camera) - 1); $i++)
+	{
+		$start_pos_x = $camera[$i][0];
+		$start_pos_y = $camera[$i][1];
+		$start_center_x = $camera[$i][2];
+		$start_center_y = $camera[$i][3];
+		$start_scale = $camera[$i][4];
+		$start_duration = $camera[$i][5] * $fps;
+		$end = $start + $start_duration;
+
+		if (($start <= $i_frame) and ($i_frame < $end))
+		{
+			$end_pos_x = $camera[$i + 1][0];
+			$end_pos_y = $camera[$i + 1][1];
+			$end_center_x = $camera[$i + 1][2];
+			$end_center_y = $camera[$i + 1][3];
+			$end_scale = $camera[$i + 1][4];
+			$end_duration = $camera[$i + 1][5] * $fps;
+
+			$v['camera']['pos_x'] = calc_get_gradual($start_pos_x, $end_pos_x, $i_frame - $start, $end);
+			$v['camera']['pos_y'] = calc_get_gradual($start_pos_y, $end_pos_y, $i_frame - $start, $end);
+			$v['camera']['center_x'] = calc_get_gradual($start_center_x, $end_center_x, $i_frame - $start, $end);
+			$v['camera']['center_y'] = calc_get_gradual($start_center_y, $end_center_y, $i_frame - $start, $end);
+			$v['camera']['scale'] = calc_get_gradual($start_scale, $end_scale, $i_frame - $start, $end);
+
+			//	print_r($v['camera']);
+			//	echo "camera handler: $start_pos_x, $start_pos_y, $start_center_x, $start_center_y, $start_scale, $i_frame, $start_duration, $end_duration\n";
+			//	echo "camera handler: $end_pos_x, $end_pos_y, $end_center_x, $end_center_y, $end_scale, $start, $end\n";
+
+			break;
+		}
+
+		$start = $end;
+	}
+}
+
 function render_frame($i_frame)
 {
     global $v;
 
-    $fps = $v['scene']['fps'];
+	$fps = $v['scene']['fps'];
+	//	camera handling
+	camera_handler($i_frame);
 
     for ($i = 0; $i < count($v['object']); $i++)
     {
