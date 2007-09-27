@@ -77,6 +77,8 @@ require_once('color/truecolor.php');
 require_once('script/thecall.php');
 require_once('object/char_liuyue/profile.php');
 require_once('object/bg_school/profile.php');
+require_once('object/taiyang/profile.php');
+require_once('object/cao/profile.php');
 require_once('element/eye_round/profile.php');
 require_once('element/eye_round/render.php');
 require_once('scene/profile.php');

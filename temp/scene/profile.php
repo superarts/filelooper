@@ -1,9 +1,10 @@
 <?php
 
+$v['scene']['scene'] = 1;
+
 //	scene info
 $v['scene']['name'] = 'show';		//	name and episode are for file naming
 $v['scene']['episode'] = 1;			//	which episode of the series
-$v['scene']['scene'] = 1;
 $v['scene']['res_x'] = 1280;
 $v['scene']['res_y'] = 720;
 $v['scene']['fps'] = 10;

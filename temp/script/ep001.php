@@ -7,10 +7,13 @@ $v['scene_00002'] = array(
 	'duration'	=> ,
 	'bg_color'	=> $v['color_blue'],
 	'camera'	=> array(
+		
 		),
 	'object'	=> array(
+		
 		),
 	'script'	=> array(
+		
 		),
 	'name'		=> 'Scene ');
  *
