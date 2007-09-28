@@ -195,12 +195,14 @@ function generate_script_goto($name, $script, $count)
 		$loop = abs($x - $dest_x) / $step;
 		if (($loop < 1) or ($flag_walk == 'jump'))
 			$loop = 1;
+		else
+			$loop = round($loop);
+
+		//	echo "script generator goto - name, $duration, loop: $name, $duration, $loop\n$script\n";
 
 		$duration /= $loop;
 		$dest_x /= $loop;
 		$dest_y /= $loop;
-
-		//	echo "script generator goto - name, script, loop: $name, $script, $loop\n";
 
 		for ($i_loop = 0; $i_loop < $loop; $i_loop++)
 		{
@@ -233,6 +235,7 @@ function generate_script_goto($name, $script, $count)
 				'dest_y'	=> $last_y + $dest_y * ($i_loop + 1),
 				'name'		=> 'Goto Habit Action Move End');
 
+			//	echo "script generator goto - $i_loop / $loop:	$start\n";
 			$start += $duration;
 		}
 
@@ -329,6 +332,14 @@ function generate_script_look($name, $script, $count)
 
 	switch ($direction)
 	{
+	case '001':		//	center
+	case '1':		
+		$eye .= '001';
+		break;
+	case '90':		//	up
+	case '090':	
+		$eye .= '090';
+		break;
 	case '180':		//	left
 		$eye .= '180';
 		break;
