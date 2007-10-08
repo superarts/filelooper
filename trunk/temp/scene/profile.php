@@ -1,9 +1,12 @@
 <?php
 
-$v['scene']['scene'] = 5;
+if (isset($index_scene) == false)
+	$v['scene']['scene'] = 5;
+else
+	$v['scene']['scene'] = $index_scene;
 
 //	scene info
-$v['scene']['name'] = 'show';		//	name and episode are for file naming
+$v['scene']['name'] = 'test';		//	name and episode are for file naming
 $v['scene']['episode'] = 1;			//	which episode of the series
 $v['scene']['res_x'] = 1280;
 $v['scene']['res_y'] = 720;
@@ -18,14 +21,21 @@ $v['camera']['center_x'] = 0.5;
 $v['camera']['center_y'] = 0.5;
 $v['camera']['scale'] = 1;
 
-$scene_index = str_pad($v['scene']['scene'], 5, '0', STR_PAD_LEFT);
-//	echo "scene index: $scene_index\n";
+function scene_reload()
+{
+	global $v;
 
-$v['scene']['duration'] = $v["scene_$scene_index"]['duration'];
-$v['object'] = $v["scene_$scene_index"]['object'];
-$v['script'] = $v["scene_$scene_index"]['script'];
-$v['bg_color'] = $v["scene_$scene_index"]['bg_color'];
-$v['camera_script'] = $v["scene_$scene_index"]['camera'];
+	$scene_index = str_pad($v['scene']['scene'], 5, '0', STR_PAD_LEFT);
+	//	echo "scene index: $scene_index\n";
+
+	$v['scene']['duration'] = $v["scene_$scene_index"]['duration'];
+	$v['object'] = $v["scene_$scene_index"]['object'];
+	$v['script'] = $v["scene_$scene_index"]['script'];
+	$v['bg_color'] = $v["scene_$scene_index"]['bg_color'];
+	$v['camera_script'] = $v["scene_$scene_index"]['camera'];
+
+	return;
+}
 
 $v['render'] = array(
 	'filter' 	=> 'event',			//	all: all frames; event: event only; NUMBER: specified frame;

@@ -56,6 +56,10 @@ function parse_command()
 	if (in_array('r', $argv))
 		$v['render']['filter'] = $argv[$flip['r'] + 1];
 
+	//	scene frame: s scene_index;
+	if (in_array('s', $argv))
+		$v['scene']['scene'] = $argv[$flip['s'] + 1];
+
 	//	renderer smooth
 	if (in_array('rs', $argv))
 		$v['render']['renderer'] = 'release';
@@ -91,8 +95,41 @@ require_once('calculate/pos.php');
 require_once('calculate/calculate.php');
 
 parse_command();
-generate_script();
-render_scene();
+//	$data = $v['scene']['scene'];	echo "scene: $data\n"; 
+
+function get_scene_max()
+{
+	global $v;
+
+	$result = 0;
+
+	do {
+		$result++;
+		$index = str_pad($result, 5, '0', STR_PAD_LEFT);
+	}	while (isset($v["scene_$index"]) == true);
+
+	return $result - 1;
+}
+
+print_r($argv);
+if (in_array('se', $argv))
+{
+	$c = get_scene_max();
+	echo "scene max: $c\n";
+	for ($i = 1; $i <= $c; $i++)
+	{
+		$v['scene']['scene'] = $i;
+		scene_reload();		//	reload 'current scene' parameters
+		generate_script();
+		render_scene();
+	}
+}
+else
+{
+	scene_reload();		//	reload 'current scene' parameters
+	generate_script();
+	render_scene();
+}
 
 //	print_r($v);
 
