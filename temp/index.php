@@ -79,11 +79,6 @@ srand(1);
 require_once('color/truecolor.php');
 //	require_once('script/ep001.php');
 require_once('script/thecall.php');
-require_once('object/char_liuyue/profile.php');
-require_once('object/bg_school/profile.php');
-require_once('object/taiyang/profile.php');
-require_once('object/cao/profile.php');
-require_once('element/eye_round/profile.php');
 require_once('element/eye_round/render.php');
 require_once('scene/profile.php');
 require_once('scene/script.php');
@@ -93,6 +88,17 @@ require_once('calculate/ultility.php');
 require_once('calculate/len.php');
 require_once('calculate/pos.php');
 require_once('calculate/calculate.php');
+
+function profile_reload()
+{
+	global $v;
+
+	require('object/char_liuyue/profile.php');
+	require('object/bg_school/profile.php');
+	require('object/taiyang/profile.php');
+	require('object/cao/profile.php');
+	require('element/eye_round/profile.php');
+}
 
 parse_command();
 //	$data = $v['scene']['scene'];	echo "scene: $data\n"; 
@@ -112,13 +118,14 @@ function get_scene_max()
 }
 
 print_r($argv);
-if (in_array('se', $argv))
+if (in_array('sa', $argv))
 {
-	$c = get_scene_max();
-	echo "scene max: $c\n";
+	//	$c = get_scene_max();
+	//	echo "scene max: $c\n";
 	for ($i = 1; $i <= $c; $i++)
 	{
 		$v['scene']['scene'] = $i;
+		profile_reload();
 		scene_reload();		//	reload 'current scene' parameters
 		generate_script();
 		render_scene();
@@ -126,6 +133,7 @@ if (in_array('se', $argv))
 }
 else
 {
+	profile_reload();
 	scene_reload();		//	reload 'current scene' parameters
 	generate_script();
 	render_scene();
