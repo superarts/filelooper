@@ -1,5 +1,7 @@
 <?php
 
+$index_scene = 2;
+
 /*
  * An Empty Scene
  *
