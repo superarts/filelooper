@@ -7,7 +7,7 @@ $v['room_cao'] = array(
 	'scale'		=> 1.2,
 	'item_x'	=> 0,
 	'item_y'	=> 0,
-	'item'		=> 'room/taiyang_living_room',
+	'item'		=> 'room/cao_dinner_room',
 	'event'		=> array(),
 	'name'		=> 'Living Room of Cao');
 

@@ -117,13 +117,14 @@ function get_scene_max()
 	return $result - 1;
 }
 
-print_r($argv);
+//	print_r($argv);
 if (in_array('sa', $argv))
 {
-	//	$c = get_scene_max();
+	$c = get_scene_max();
 	//	echo "scene max: $c\n";
 	for ($i = 1; $i <= $c; $i++)
 	{
+		echo "scene: $i/$c\n";
 		$v['scene']['scene'] = $i;
 		profile_reload();
 		scene_reload();		//	reload 'current scene' parameters
@@ -146,5 +147,20 @@ else
 //	print_r(str_word_count('this is a , test! ', 1, ',.;?!'));
 //	$s = language_filter('wo cai bu xiang xin ne ');	echo "$s\n";
 }
+
+/*
+Segments: 
+http://ckhouri.serve.castfire.net/media/adv/30/62/2050-640x480.mp4 
+http://ckhouri.serve.castfire.net/media/81/187/2052-640x480.mp4 
+http://ckhouri.serve.castfire.net/media/81/187/2049-640x480.mp4 
+http://ckhouri.serve.castfire.net/media/81/187/2053-640x480.mp4 
+http://ckhouri.serve.castfire.net/media/adv/30/62/2051-640x480.mp4 
+ 
+Final show: 
+http://ckhouri.serve.castfire.net/video/1628/1628_2007-10-01-233326.mp4
+that's live in my dev env
+let me kill the cache fo rthe final show
+so when you downlaod it, it will be a new join.
+ */
 
 ?> 
