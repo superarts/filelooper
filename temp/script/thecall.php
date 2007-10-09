@@ -42,15 +42,16 @@ $v['scene_00009'] = array(
 	'duration'	=> 1,
 	'bg_color'	=> $v['color_blue'],
 	'camera'	=> array(
-		array(-0.2, 0, 0.5, 0.5, 1.5, 3),
-		array(-0.2, 0, 0.5, 0.5, 1.5, 0),
+		array(0.4, 0.1, 0.5, 0.5, 1.6, 3),
+		array(0.4, 0.1, 0.5, 0.5, 1.6, 0),
 		),
 	'object'	=> array(
 		'room_cao',
 		'cao',
 		),
 	'script'	=> array(
-		'set cao as kid at 0.65 0.16 size 0.4 ',
+		'set cao as kid at 0.16 0.27 size 0.35 ',
+		'look cao at 0 for 10 to 360 ',
 		'say cao at 0.25 for 0.75 speak wo cao ',
 		),
 	'name'		=> 'Scene ');
@@ -62,15 +63,16 @@ $v['scene_00008'] = array(
 	'duration'	=> 2,
 	'bg_color'	=> $v['color_blue'],
 	'camera'	=> array(
-		array(-0.2, 0, 0.5, 0.5, 1.5, 3),
-		array(-0.2, 0, 0.5, 0.5, 1.5, 0),
+		array(0.4, 0.1, 0.5, 0.5, 1.6, 3),
+		array(0.4, 0.1, 0.5, 0.5, 1.6, 0),
 		),
 	'object'	=> array(
 		'room_cao',
 		'cao',
 		),
 	'script'	=> array(
-		'set cao as kid at 0.65 0.16 size 0.4 ',
+		'set cao as kid at 0.16 0.27 size 0.35 ',
+		'look cao at 0 for 10 to 360 ',
 		'say cao at 0.25 for 1.7l speak wo cao a wo cao ni shi shui a ',
 		),
 	'name'		=> 'Scene ');
@@ -78,19 +80,20 @@ $v['scene_00008'] = array(
 /*
  * ²İ£ºÎÒ²İ£¬Äãµ½µ×ÊÇË­°¡£¿
  */
-$v['scene_00007'] = array(
+$v['scene_00006'] = array(
 	'duration'	=> 2,
 	'bg_color'	=> $v['color_blue'],
 	'camera'	=> array(
-		array(-0.2, 0, 0.5, 0.5, 1.5, 3),
-		array(-0.2, 0, 0.5, 0.5, 1.5, 0),
+		array(0.4, 0.1, 0.5, 0.5, 1.6, 3),
+		array(0.4, 0.1, 0.5, 0.5, 1.6, 0),
 		),
 	'object'	=> array(
 		'room_cao',
 		'cao',
 		),
 	'script'	=> array(
-		'set cao as kid at 0.65 0.16 size 0.4 ',
+		'set cao as kid at 0.16 0.27 size 0.35 ',
+		'look cao at 0 for 10 to 360 ',
 		'say cao at 0.25 for 1.7l speak wo cao ni dao di shi shui a ',
 		),
 	'name'		=> 'Scene ');
@@ -98,24 +101,25 @@ $v['scene_00007'] = array(
 /*
  * ²İ£º£¨ÄÃÆğµç»°£©ÎÒ²İ£¬ÄãË­°¡£¿
  */
-$v['scene_00006'] = array(
+$v['scene_00004'] = array(
 	'duration'	=> 2,
 	'bg_color'	=> $v['color_blue'],
 	'camera'	=> array(
-		array(-0.2, 0, 0.5, 0.5, 1.5, 3),
-		array(-0.2, 0, 0.5, 0.5, 1.5, 0),
+		array(0.4, 0.1, 0.5, 0.5, 1.6, 3),
+		array(0.4, 0.1, 0.5, 0.5, 1.6, 0),
 		),
 	'object'	=> array(
 		'room_cao',
 		'cao',
 		),
 	'script'	=> array(
-		'set cao as kid at 0.65 0.16 size 0.4 ',
+		'set cao as kid at 0.16 0.27 size 0.35 ',
+		'look cao at 0 for 10 to 360 ',
 		'say cao at 0.25 for 1.7l speak wo cao ni shui a ',
 		),
 	'name'		=> 'Scene ');
 
-$v['scene_00005'] = array(
+$v['scene_00007'] = array(
 	'duration'	=> 3,
 	'bg_color'	=> $v['color_blue'],
 	'camera'	=> array(
@@ -135,7 +139,7 @@ $v['scene_00005'] = array(
 		),
 	'name'		=> 'Scene ');
 
-$v['scene_00004'] = array(
+$v['scene_00005'] = array(
 	'duration'	=> 2,
 	'bg_color'	=> $v['color_blue'],
 	'camera'	=> array(
