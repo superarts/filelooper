@@ -45,6 +45,7 @@ $v['render'] = array(
 $v['set'] = array(
 	'head'	 		=> array('face', 'eye', 'mouth'),
 	'kid_all'		=> array('face', 'eye', 'mouth', 'body'),
+	'adult_all'		=> array('face', 'eye', 'mouth', 'body'),
 	'sky_all'		=> array('sky'),
 	'ground_all'	=> array('ground'),
 	'building_all'	=> array('building'),
@@ -56,6 +57,12 @@ $v['set'] = array(
  *
  */
 $v['kid'] = array(
+    'body',
+    'face',
+    'eye',
+    'mouth');
+
+$v['adult'] = array(
     'body',
     'face',
     'eye',

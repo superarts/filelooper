@@ -4,6 +4,8 @@ function generate_script_say($name, $script, $count)
 {
 	global $v;
 
+	$type = $v[$name]['type'];
+
 	$count++;
 	$start = calc_get_token($script, $count);
 	$count++;
@@ -15,6 +17,9 @@ function generate_script_say($name, $script, $count)
 	$text = script_substr($script, $action . ' ');
 
 	$action = $v['exp'][$action];
+	if ($type == 'adult')
+		$action = 'adult' . $action;
+
 	$text = language_filter($text);
 	//	echo "generate script - text: $text\n";
 	$text = str_word_count($text, 1, ',;.?!');
@@ -198,7 +203,7 @@ function generate_script_goto($name, $script, $count)
 		else
 			$loop = round($loop);
 
-		//	echo "script generator goto - name, $duration, loop: $name, $duration, $loop\n$script\n";
+		//	echo "script generator goto: $name, $start, $duration, $loop\n$script\n";
 
 		$duration /= $loop;
 		$dest_x /= $loop;
@@ -212,7 +217,6 @@ function generate_script_goto($name, $script, $count)
 				$jump = 0;
 
 			//	echo "script generator goto - jump: $jump\n";
-
 			$v[$name]['event'][count($v[$name]['event'])] = array(
 				'action'	=> 'move',
 				'start'		=> $start,
@@ -236,7 +240,10 @@ function generate_script_goto($name, $script, $count)
 				'name'		=> 'Goto Habit Action Move End');
 
 			//	echo "script generator goto - $i_loop / $loop:	$start\n";
+			//	print_r($v[$name]['event'][count($v[$name]['event']) - 2]);
+			//	print_r($v[$name]['event'][count($v[$name]['event']) - 1]);
 			$start += $duration;
+
 		}
 
 		$last_x += $dest_x * $loop;

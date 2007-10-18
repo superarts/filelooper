@@ -35,6 +35,32 @@ $v['scene_000'] = array(
  *
  */
 
+$v['scene_00010'] = array(
+	'duration'	=> 3,
+	'bg_color'	=> $v['color_blue'],
+	'camera'	=> array(
+		array(-0.05, 0.1, 0.5, 0.5, 1, 3),
+		array(-0.1, 0.1, 0.5, 0.5, 1, 0),
+		),
+	'object'	=> array(
+		'room_taiyang',
+		'photo_taiyang_fanghuayuan',
+		'taiyang',
+		'taiyangmum',
+		),
+	'script'	=> array(
+		'set taiyang as kid at 0.65 0.16 size 0.4 ',
+		'set taiyangmum as adult at 1.35 0.16 size 0.5 ',
+		'goto taiyangmum at 0 for 1 walk -0.45 0 stay 3 walk 0 0 ',
+		'look taiyang at 0 for 0.5 to 180 ',
+		'look taiyang at 0.5 for 2.5 to 360 ',
+		'look taiyangmum at 0 for 3 to 180 ',
+		'sub taiyang at 0 for 3 with 1 body line003 3 ',
+		//	'say taiyang at 0.5 for 2 speak wo ri a ni cao ba ',
+		'say taiyangmum at 0.5 for 2 speak ce shi ce shi ',
+		),
+	'name'		=> 'Scene ');
+
 /*
  * ≤›£∫Œ“≤›£°
  */

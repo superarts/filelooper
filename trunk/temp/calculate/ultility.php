@@ -19,6 +19,17 @@ function calc_le($v1, $v2, $scale = 0.0000001)
 	return false;
 }
 
+function calc_l($v1, $v2, $scale = 0.0000001)
+{
+	if (($v2 - $v1) < $scale)
+		return false;
+
+	if ($v1 < $v2)
+		return true;
+
+	return false;
+}
+
 /*
  *	get $i-th substr from $s, of which seperator is $ss
  *
