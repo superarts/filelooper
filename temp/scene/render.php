@@ -127,10 +127,16 @@ function action_handler($name, $part, $param, $start, $end, $index)
 		$x += ($dest_x - $x) * ($index - $start) / ($end - $start);
 		$y += ($dest_y - $y) * ($index - $start) / ($end - $start);
 
-        $v[$name][$part . '_x'] = $x;
-        $v[$name][$part . '_y'] = 0 - $y;
-        //	echo "action move: $name, $part, $x, $y, $index of $start - $end\n";
-        
+		if (isset($v[$name][$part . '_x']) == false)
+			$v[$name][$part . '_x'] = 0;
+		if (isset($v[$name][$part . '_x']) == false)
+			$v[$name][$part . '_x'] = 0;
+        $v[$name][$part . '_x'] += $x;
+		$v[$name][$part . '_y'] -= $y;
+		$x1 = $v[$name][$part . '_x'];
+		$y1 = $v[$name][$part . '_y'];
+        //	echo "action move: $name, $part, $x1, $y1, $index of $start - $end\n";
+        //	print_r($param); 
 		break;
 	case 'sub':
 		$source = $param['source'];
@@ -227,9 +233,11 @@ function render_frame($i_frame)
             //  echo "event checking: $i_event, $event_start, $event_end, $i_frame, $temp\n";
 			//	if ($event_start == $i_frame) echo "gotcha\n";
 
-            if (calc_le($event_start, $i_frame) and ($i_frame < $event_end))
+            if (calc_le($event_start, $i_frame) and calc_l($i_frame, $event_end))
 			{
-                //  event handling
+				//  event handling
+				$temp = $event_end - $i_frame;
+				//	echo "event checking: $temp, $i_frame < $event_end\n";
 				$param = $v[$name]['event'][$i_event];
 
 				//	no 'part' means it's for a whole object
