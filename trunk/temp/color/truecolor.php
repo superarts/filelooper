@@ -10,6 +10,7 @@ $v['color_green'] = imagecolorallocate($image, 0, 255, 0);
 $v['color_blue'] = imagecolorallocate($image, 0, 0, 255);
 
 $v['color_school_wall'] = imagecolorallocate($image, 168, 146, 120);
+$v['color_sun_living_room'] = imagecolorallocate($image, 7, 127, 50);
 //	$v['color_'] = imagecolorallocate($image, , , );
 
 imagedestroy($image);

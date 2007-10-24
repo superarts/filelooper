@@ -197,13 +197,13 @@ function generate_script_goto($name, $script, $count)
 		$dest_y = calc_get_token($script, $count);
 		$count++;
 
-		$loop = abs($x - $dest_x) / $step;
+		$loop = abs(abs($x) - abs($dest_x)) / $step;
 		if (($loop < 1) or ($flag_walk == 'jump'))
 			$loop = 1;
 		else
 			$loop = round($loop);
 
-		//	echo "script generator goto: $name, $start, $duration, $loop\n$script\n";
+		//	echo "script generator goto: $name, $start, $duration, $loop, $x, $dest_x, $step\n$script\n";
 
 		$duration /= $loop;
 		$dest_x /= $loop;
@@ -216,7 +216,7 @@ function generate_script_goto($name, $script, $count)
 			else
 				$jump = 0;
 
-			//	echo "script generator goto - jump: $jump\n";
+			//	echo "script generator goto - $name jump: $jump at $start for $duration\n";
 			$v[$name]['event'][count($v[$name]['event'])] = array(
 				'action'	=> 'move',
 				'start'		=> $start,
