@@ -135,7 +135,7 @@ function action_handler($name, $part, $param, $start, $end, $index)
 		$v[$name][$part . '_y'] -= $y;
 		$x1 = $v[$name][$part . '_x'];
 		$y1 = $v[$name][$part . '_y'];
-        //	echo "action move: $name, $part, $x1, $y1, $index of $start - $end\n";
+        //	echo "action move: $name, $part, $x1=$x/$dest_x, $y1=$y/$dest_y, $index=$start/$end\n";
         //	print_r($param); 
 		break;
 	case 'sub':

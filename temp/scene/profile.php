@@ -8,8 +8,8 @@ else
 //	scene info
 $v['scene']['name'] = 'test';		//	name and episode are for file naming
 $v['scene']['episode'] = 1;			//	which episode of the series
-$v['scene']['res_x'] = 1280;
-$v['scene']['res_y'] = 720;
+$v['scene']['res_x'] = 640;
+$v['scene']['res_y'] = 360;
 $v['scene']['fps'] = 10;
 $v['scene']['subtitle'] = false;	//	render subtitle
 $v['scene']['duration'] = 3;		//	count in seconds
