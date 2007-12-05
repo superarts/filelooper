@@ -1,6 +1,6 @@
 <?php
 
-$filename_ogg = "/home/leo/mnt/e/studio/show_001_05.ogg";
+$filename_ogg = "/home/leo/mnt/e/studio/show_001_01.ogg";
 //	$filename_wav = "/home/leo/mnt/e/studio/show_001_08.wav";
 $filename_php = "script.php";
 $char_name = 'liuyue';
@@ -136,9 +136,9 @@ while (($i + $ii) < count($vol))
 	$ii = 0;
 }
 
-	print_r($vol);
+//	print_r($vol);
 //	for ($i = 0; $i < count($vol); $i++) if ($vol[$i] <= OGG_VOLUME) echo "$i\t----\n"; else echo "$i\t$vol[$i]\n";
-	print_r($silence);
+//	print_r($silence);
 
 $clip = array();
 for ($i = 0; $i < (count($silence) / 2 - 1); $i++)
@@ -147,7 +147,7 @@ for ($i = 0; $i < (count($silence) / 2 - 1); $i++)
 	$clip[$i][1] = ($silence[$i * 2 + 2] - $silence[$i * 2 + 1]) / 100;
 }
 
-	print_r($clip);
+//	print_r($clip);
 //	echo count($clip);
 
 for ($i = 0; $i < count($clip); $i++)
@@ -159,7 +159,7 @@ for ($i = 0; $i < count($clip); $i++)
 	{
 		//	play sound clip
 		//	$s = "mplayer $filename_wav -ss $clip_start -endpos $clip_duration -nolirc &";
-		$s = "play $filename_ogg trim $clip_start $clip_duration";
+		$s = "play -q $filename_ogg trim $clip_start $clip_duration";
 		//	echo "$s\n";
 		exec($s);
 
@@ -181,23 +181,30 @@ for ($i = 0; $i < count($clip); $i++)
 		}
 	}
 }
+$word_count = $i;
 
-//	print_r($word);
-echo "\n";
+echo "Word array:\n";
+	print_r($word);
+
+$s = scanf("Save to file (default $filename_php):\t");
+if ($s != "")
+	$filename_php = $s;
 
 $fp = fopen($filename_php, "wb");
 fwrite($fp, "<?php\n\n");
 fwrite($fp, "\$v[''] = array(\n");
 fwrite($fp, "\t\t'script' = array(\n");
-for ($i = 0; $i < count($word); $i++)
+for ($i = 0; $i < $word_count; $i++)
 {
-	fwrite($fp, "\t\t\t'$word[$i]',\n");
+	if (isset($word[$i]))
+		fwrite($fp, "\t\t\t'$word[$i]',\n");
 }
 fwrite($fp, "\t\t\t),");
 fwrite($fp, "\t\t'name' => '');\n");
 fwrite($fp, "\n?>");
 fclose($fp);
 
+echo "$ cat $filename_php\n";
 system("cat $filename_php");
 echo "\n\n";
 
