@@ -1,36 +1,5 @@
 <?php
 
-if (false)
-{
-	$image = imagecreatetruecolor(1280, 720);
-	$block = imagecreatetruecolor(700, 700);
-	$color_white = imagecolorallocate($image, 255, 255, 255);
-	$color_black = imagecolorallocate($image, 0, 0, 0);
-	$color_trans = imagecolorallocatealpha($image, 255, 0, 0, 127);
-	imagefill($image, 0, 0, $color_white);
-	imagefilledrectangle($image, 100, 100, 500, 300, $color_trans);
-
-	imagefill($block, 0, 0, $color_trans);
-	imagerectangle($block, 0, 0, 699, 699, $color_black);
-	imagefilledrectangle($block, 50, 50, 600, 600, $color_black);
-	$block = imagerotate($block, 45, $color_trans);
-
-	imagecopy($image, $block, 300, 10, 0, 0, 700, 700);
-
-	imagepng($image, 'test.png');
-	imagedestroy($image);
-	imagedestroy($block);
-
-	print_r($color_white);
-	echo "\n";
-	print_r($color_black);
-	echo "\n";
-	print_r($color_trans);
-	echo "\n";
-
-	print_r($argv);
-}
-
 /*
  * index of libphpct
  *
@@ -78,7 +47,8 @@ srand(1);
 
 require_once('color/truecolor.php');
 //	require_once('script/ep001.php');
-require_once('script/thecall.php');
+//	require_once('script/thecall.php');
+require_once('script/oneman_001.php');
 require_once('element/eye_round/render.php');
 require_once('scene/profile.php');
 require_once('scene/script.php');
@@ -149,19 +119,35 @@ else
 //	$s = language_filter('wo cai bu xiang xin ne ');	echo "$s\n";
 }
 
-/*
-Segments: 
-http://ckhouri.serve.castfire.net/media/adv/30/62/2050-640x480.mp4 
-http://ckhouri.serve.castfire.net/media/81/187/2052-640x480.mp4 
-http://ckhouri.serve.castfire.net/media/81/187/2049-640x480.mp4 
-http://ckhouri.serve.castfire.net/media/81/187/2053-640x480.mp4 
-http://ckhouri.serve.castfire.net/media/adv/30/62/2051-640x480.mp4 
- 
-Final show: 
-http://ckhouri.serve.castfire.net/video/1628/1628_2007-10-01-233326.mp4
-that's live in my dev env
-let me kill the cache fo rthe final show
-so when you downlaod it, it will be a new join.
- */
+if (false)
+{
+	$image = imagecreatetruecolor(1280, 720);
+	$block = imagecreatetruecolor(700, 700);
+	$color_white = imagecolorallocate($image, 255, 255, 255);
+	$color_black = imagecolorallocate($image, 0, 0, 0);
+	$color_trans = imagecolorallocatealpha($image, 255, 0, 0, 127);
+	imagefill($image, 0, 0, $color_white);
+	imagefilledrectangle($image, 100, 100, 500, 300, $color_trans);
+
+	imagefill($block, 0, 0, $color_trans);
+	imagerectangle($block, 0, 0, 699, 699, $color_black);
+	imagefilledrectangle($block, 50, 50, 600, 600, $color_black);
+	$block = imagerotate($block, 45, $color_trans);
+
+	imagecopy($image, $block, 300, 10, 0, 0, 700, 700);
+
+	imagepng($image, 'test.png');
+	imagedestroy($image);
+	imagedestroy($block);
+
+	print_r($color_white);
+	echo "\n";
+	print_r($color_black);
+	echo "\n";
+	print_r($color_trans);
+	echo "\n";
+
+	print_r($argv);
+}
 
 ?> 
