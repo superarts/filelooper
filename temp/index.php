@@ -97,6 +97,7 @@ function profile_reload()
 	require('object/bg_school/profile.php');
 	require('object/taiyang/profile.php');
 	require('object/cao/profile.php');
+	require('object/oneman/profile.php');
 	require('element/eye_round/profile.php');
 }
 
