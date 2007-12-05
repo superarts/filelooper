@@ -40,8 +40,9 @@ $v['scene_00001'] = array(
 			),
 		'object'	=> array(
 			'room_oneman_hall',
-			'item_oneman_light',
 			'liuyue',
+			'item_oneman_light',
+			'furniture_oneman_platform',
 			),
 		'script'	=> array(
 			'set cao as kid at 0.6 0.1 size 0.32 ',
