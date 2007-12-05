@@ -22,4 +22,15 @@ $v['item_oneman_light'] = array(
 	'event'		=> array(),
 	'name'		=> 'Light from the slide player of the One Man Show');
 
+$v['furniture_oneman_platform'] = array(
+	'type'		=> 'misc',
+	'pos_x'		=> 0.5,
+	'pos_y'		=> -0.3,
+	'scale'		=> 1,
+	'item_x'	=> 0,
+	'item_y'	=> 0,
+	'item'		=> 'furniture/platform001',
+	'event'		=> array(),
+	'name'		=> 'Light from the slide player of the One Man Show');
+
 ?>
