@@ -37,6 +37,12 @@ function parse_command()
 	if (in_array('rf', $argv))
 		$v['render']['renderer'] = 'debug';
 
+	//	overwrite
+	if (in_array('ov', $argv))
+		$v['render']['overwrite'] = true;
+	else
+		$v['render']['overwrite'] = false;
+
 	return;	
 }
 
@@ -97,6 +103,27 @@ if (in_array('sa', $argv))
 	{
 		echo "scene: $i/$c\n";
 		$v['scene']['scene'] = $i;
+
+		//	create output directory
+		$episode = str_pad($v['scene']['episode'], 3, '0', STR_PAD_LEFT);
+		$scene = str_pad($v['scene']['scene'], 5, '0', STR_PAD_LEFT);
+		$pathname = $v['scene']['name'] . '_' . $episode . '_' . $scene;
+		//	true: windows; false: linux
+		if (false)
+		{
+			echo "mkdir $pathname\n";
+			system("cd output");
+			system("dir");
+			system("mkdir $pathname");
+			system("cd ..");
+		}
+		else
+		{
+			$pathname = "output\$pathname";
+			//if (file_exists($pathname) == false)
+				exec("mkdir $pathname");
+		}
+
 		profile_reload();
 		scene_reload();		//	reload 'current scene' parameters
 		generate_script();
@@ -117,37 +144,6 @@ else
 //	$s = get_substr('i said you cannot win ! ', 'said ');	echo "$s\n";
 //	print_r(str_word_count('this is a , test! ', 1, ',.;?!'));
 //	$s = language_filter('wo cai bu xiang xin ne ');	echo "$s\n";
-}
-
-if (false)
-{
-	$image = imagecreatetruecolor(1280, 720);
-	$block = imagecreatetruecolor(700, 700);
-	$color_white = imagecolorallocate($image, 255, 255, 255);
-	$color_black = imagecolorallocate($image, 0, 0, 0);
-	$color_trans = imagecolorallocatealpha($image, 255, 0, 0, 127);
-	imagefill($image, 0, 0, $color_white);
-	imagefilledrectangle($image, 100, 100, 500, 300, $color_trans);
-
-	imagefill($block, 0, 0, $color_trans);
-	imagerectangle($block, 0, 0, 699, 699, $color_black);
-	imagefilledrectangle($block, 50, 50, 600, 600, $color_black);
-	$block = imagerotate($block, 45, $color_trans);
-
-	imagecopy($image, $block, 300, 10, 0, 0, 700, 700);
-
-	imagepng($image, 'test.png');
-	imagedestroy($image);
-	imagedestroy($block);
-
-	print_r($color_white);
-	echo "\n";
-	print_r($color_black);
-	echo "\n";
-	print_r($color_trans);
-	echo "\n";
-
-	print_r($argv);
 }
 
 ?> 

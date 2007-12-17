@@ -160,6 +160,49 @@ function generate_script_zoom($name, $script, $count)
 	return;
 }
 
+function generate_script_blend($name, $script, $count)
+{
+	global $v;
+
+	do {
+		$s = calc_get_token($script, $count);
+		$count++;
+		$ss = calc_get_token($script, $count);
+		$count++;
+
+		switch ($s)
+		{
+		case 'at':
+			$start = $ss;
+			break;
+		case 'for':
+			$duration = $ss;
+			break;
+		case 'from':
+			$alpha = $ss;
+			break;
+		case 'to':
+			$alpha_to = $ss;
+			break;
+		default:
+			exit("generate script zoom - unknown keyword: $s");
+		}
+
+		//	echo "generate script zoom: $s, $ss\n";
+		$s = calc_get_token($script, $count);
+	} while ($s != '');	//	($script . ' '));
+
+	$v[$name]['event'][count($v[$name]['event'])] = array(
+		'action'	=> 'blend',
+		'start'		=> $start,
+		'duration'	=> $duration,
+		'alpha'		=> $alpha,
+		'alpha_to'	=> $alpha_to,
+		'name'		=> 'Event Zoom');
+
+	return;
+}
+
 function generate_script_goto($name, $script, $count)
 {
 	global $v;
@@ -315,6 +358,7 @@ function generate_script_sub($name, $script, $count)
 		if ($index == $count_source)
 			$index = 0;
 		//	echo "script generate sub: $name, $part, $time, $duration\n";
+		//	print_r($v[$name]['event'][count($v[$name]['event']) - 1]);
 	}
 
 	return;
@@ -426,6 +470,10 @@ function generate_script()
 			break;
 		case 'zoom':
 			generate_script_zoom($name, $script, $count);
+
+			break;
+		case 'blend':
+			generate_script_blend($name, $script, $count);
 
 			break;
 		case 'sub':
