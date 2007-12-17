@@ -15,6 +15,9 @@ function get_dest_name($i)
     $filename .= '_' . $index;
     $filename .= '.png';
 
+	$pathname = $v['scene']['name'] . '_' . $episode . '_' . $scene;
+	$filename = "./output/$pathname/$filename";
+
     return $filename;
 }
 
@@ -79,12 +82,24 @@ function render_scene()
     $duration = $v['scene']['duration'];
     $count = $fps * $duration;
 
+	$time_start = time();
     for ($i = 1; $i < $count; $i++)
 	{
+		$overwrite = $v['render']['overwrite'];
+		if ($overwrite == false)
+		{
+			if (file_exists(get_dest_name($i)) == true)
+				continue;
+		}
+
 		if (event_check($i) == true)
 		{
+			$time_now = time() - $time_start;
+			$time_all = round($time_now * $count / $i);
+			$time_rest = round(($time_all - $time_now) / 60);
+
 			//  render scene
-			echo "rendering #$i\n";
+			echo "rendering #$i / $count, time: $time_now - $time_all ($time_rest min left)\n";
 			$v['image_scene'] = imagecreatetruecolor($v['scene']['res_x'], $v['scene']['res_y']);
 
 			imagefill($v['image_scene'], 0, 0, $v['bg_color']);
@@ -144,6 +159,8 @@ function action_handler($name, $part, $param, $start, $end, $index)
 
 		break;
 	case 'zoom':
+		//	echo "$name:\n";
+		//	print_r($param);
 		$scale = $param['scale'];
 		$scale_to = $param['scale_to'];
 
@@ -154,6 +171,21 @@ function action_handler($name, $part, $param, $start, $end, $index)
 
 		$v[$name]['scale'] = $scale + ($scale_to - $scale) * ($index - $start) / ($end - $start);
         //	echo "action zoom: $name, $part, $scale, $scale_to, $index of $start - $end\n";
+
+		break;
+	case 'blend':
+		$alpha = $param['alpha'];
+		$alpha_to = $param['alpha_to'];
+
+		/*
+		if ($alpha == 0)
+			$alpha = $v[$name]['alpha'];
+		if ($alpha_to == 0)
+			$alpha_to = $v[$name]['alpha'];
+		 */
+
+		$v[$name]['alpha'] = $alpha + ($alpha_to - $alpha) * ($index - $start) / ($end - $start);
+        //	echo "action zoom: $name, $part, $alpha, $alpha_to, $index of $start - $end\n";
 
 		break;
     default:
@@ -301,7 +333,16 @@ function render_get_image($name, $part)
 function render_part($name, $part)
 {
     global $v;
-    $scale = $v[$name]['scale'];
+	$scale = $v[$name]['scale'];
+	if (isset($v[$name]['alpha']))
+	{
+		$alpha = $v[$name]['alpha'];
+		$alpha = $alpha * 127 / 100;
+	}
+	else
+		$alpha = 0;
+
+
     $x = $v[$name]['pos_x'];
     $y = $v[$name]['pos_y'];
 
@@ -343,7 +384,26 @@ function render_part($name, $part)
 	$x += $center_x;
 	$y += $center_y;
 
-	$image = imagecreatefrompng($filename);
+	/*
+	 * TODO: alpha blending
+	 * 		currently a null picture is used to replace the original picture when blend level is under 64.
+	 */
+	//	echo "alpha $filename: $alpha\n";
+	if ($alpha < 64)
+		$image = imagecreatefrompng($filename);
+	else
+		$image = imagecreatefrompng('image/null.png');
+
+	/*
+	if ($alpha != 0)
+	{
+		$sx = imagesx($image);
+		$sy = imagesy($image);
+		$blend = imagecolorallocatealpha($image, 255, 255, 255, $alpha);
+		imagealphablending($image, true);
+		imagefilledrectangle($image, 0, 0, $sx, $sy, $blend);
+	}
+	 */
 	switch ($v['render']['renderer'])
 	{
 	case 'release':
