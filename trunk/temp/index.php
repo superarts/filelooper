@@ -54,7 +54,8 @@ srand(1);
 require_once('color/truecolor.php');
 //	require_once('script/ep001.php');
 //	require_once('script/thecall.php');
-require_once('script/oneman_001.php');
+//	require_once('script/oneman_001.php');
+require_once('script/oneman_001_02.php');
 require_once('element/eye_round/render.php');
 require_once('scene/profile.php');
 require_once('scene/script.php');
@@ -109,7 +110,7 @@ if (in_array('sa', $argv))
 		$scene = str_pad($v['scene']['scene'], 5, '0', STR_PAD_LEFT);
 		$pathname = $v['scene']['name'] . '_' . $episode . '_' . $scene;
 		//	true: windows; false: linux
-		if (false)
+		if (false)	//	TODO: the code below isn't working...
 		{
 			echo "mkdir $pathname\n";
 			system("cd output");
@@ -119,9 +120,12 @@ if (in_array('sa', $argv))
 		}
 		else
 		{
-			$pathname = "output\$pathname";
-			//if (file_exists($pathname) == false)
+			$pathname = "./output/$pathname";
+			if (file_exists($pathname) == false)
+			{
+				//	echo "mkdir $pathname";
 				exec("mkdir $pathname");
+			}
 		}
 
 		profile_reload();
@@ -132,6 +136,14 @@ if (in_array('sa', $argv))
 }
 else
 {
+	$episode = str_pad($v['scene']['episode'], 3, '0', STR_PAD_LEFT);
+	$scene = str_pad($v['scene']['scene'], 5, '0', STR_PAD_LEFT);
+	$pathname = $v['scene']['name'] . '_' . $episode . '_' . $scene;
+		
+	$pathname = "./output/$pathname";
+	if (file_exists($pathname) == false)
+		exec("mkdir $pathname");
+
 	profile_reload();
 	scene_reload();		//	reload 'current scene' parameters
 	generate_script();
