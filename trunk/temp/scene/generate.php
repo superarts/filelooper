@@ -50,6 +50,33 @@ function generate_script_say($name, $script, $count)
 		}
 	}
 
+	//	adding habit speaking wink
+	$habit = $v[$name]['habit']['speak']['look'];
+
+	$wink_last = -999;
+	for ($i_habit = 0; $i_habit < $text_count; $i_habit++)
+	{
+		//	rate of wink in a second
+		$rate = $habit['rate'] * $word_duration;
+		//	$rate = calc_rand($habit['rate_min'], $habit['rate_max']) * $word_duration;
+		//	echo "generate script say: $rate\n";
+
+		$wink_now = $start + $i_habit * $word_duration;
+		if ($rate >= calc_rand(0, 1) and ($wink_now - $wink_last > $habit['interval_min']))
+		{
+			$wink_last = $wink_now;
+
+			$v[$name]['event'][count($v[$name]['event'])] = array(
+				'action'	=> 'sub',
+				'start'		=> $wink_last,
+				'duration'	=> $habit['duration'],
+				'part'		=> 'eye',
+				'source'	=> $habit['type'] . $habit['to'],
+				'name'		=> 'Action Wink');
+			//	print_r($v[$name]['event'][count($v[$name]['event']) - 1]);
+		}
+	}
+
 	//	adding habit speaking move
 	$habit = $v[$name]['habit']['speak']['move'];
 	$scale = $v[$name]['scale'];
