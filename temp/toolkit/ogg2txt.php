@@ -1,6 +1,6 @@
 <?php
 
-$filename_ogg = "/home/leo/mnt/e/studio/show_001_05.ogg";
+$filename_ogg = "/home/leo/mnt/e/studio/oneman/oneman_001_02_12.ogg";
 //	$filename_wav = "/home/leo/mnt/e/studio/show_001_08.wav";
 $filename_php = "script.php";
 $char_name = 'liuyue';
@@ -190,7 +190,7 @@ $s = scanf("Save to file (default $filename_php):\t");
 if ($s != "")
 	$filename_php = $s;
 
-$fp = fopen($filename_php, "wb");
+$fp = fopen($filename_php, "ab");
 fwrite($fp, "<?php\n\n");
 fwrite($fp, "\$v[''] = array(\n");
 fwrite($fp, "\t\t'script' = array(\n");
