@@ -1,6 +1,7 @@
 <?php
 
-$filename_ogg = "/home/leo/mnt/e/studio/oneman/oneman_001_02_12.ogg";
+$filename_ogg = "/home/leo/Desktop/studio/oneman00103/audio/018.ogg";
+//	$filename_ogg = "/home/leo/mnt/e/studio/oneman/oneman_001_02_12.ogg";
 //	$filename_wav = "/home/leo/mnt/e/studio/show_001_08.wav";
 $filename_php = "script.php";
 $char_name = 'liuyue';
