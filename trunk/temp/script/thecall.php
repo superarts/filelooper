@@ -32,7 +32,30 @@ $v['scene_000'] = array(
 *
  */
 
-$v['scene_00012'] = array(
+$v['scene_00014'] = array(
+	'duration'	=> 3,
+	'bg_color'	=> $v['color_sun_living_room'],
+	'camera'	=> array(
+		array(-0.7, 0.4, 0.5, 0.5, 2, 5),
+		array(-0.7, 0.4, 0.5, 0.5, 2, 0),
+	),
+	'object'	=> array(
+		'room_taiyang',
+		'photo_taiyang_fanghuayuan',
+		'taiyangmum',
+		'taiyang',
+	),
+	'script'	=> array(
+		'set taiyang as kid at 0.6 0.16 size 0.4 ',
+		'set taiyangmum as adult at 0.9 0.16 size 0.5 ',
+		'sub taiyangmum at 0 for 9 with 1 body sunmum002 3 ',
+		'look taiyang at 0 for 9 to 360 ',
+		'look taiyangmum at 0 for 9 to 180 ',
+		'say taiyangmum at 1 for 1.069 speak wo ri ta ma ',
+	),
+	'name'		=> 'Scene ');
+
+$v['scene_00013'] = array(
 		'duration'	=> 3,
 		'bg_color'	=> $v['color_blue'],
 		'camera'	=> array(
@@ -51,7 +74,7 @@ $v['scene_00012'] = array(
 			'look caomum at 0 for 9 to 180 ',
 			'sub cao at 0 for 9 with 1 body line001 9 ',
 			'sub caomum at 0 for 9 with 2 body caomum003 0.5 caomum002 9 ',
-			'say caomum at 1 for 1 speak wo cao ta ma a ',
+			'say caomum at 1 for 1.354 speak wo cao ta ma a ',
 			),
 		'name'		=> 'Scene ');
 
@@ -83,7 +106,7 @@ $v['scene_10012'] = array(
 		'name'		=> 'Scene ');
 */
 
-$v['scene_00011'] = array(
+$v['scene_00012'] = array(
 	'duration'	=> 5,
 	'bg_color'	=> $v['color_sun_living_room'],
 	'camera'	=> array(
@@ -102,11 +125,11 @@ $v['scene_00011'] = array(
 		'sub taiyangmum at 0 for 9 with 1 body sunmum002 3 ',
 		'look taiyang at 0 for 9 to 360 ',
 		'look taiyangmum at 0 for 9 to 180 ',
-		'say taiyangmum at 1 for 3 speak wo ri ta ma ya cao ni ma ne ',
+		'say taiyangmum at 1 for 2.782 speak wo ri ta ma ya cao ni ma ne ',
 	),
 	'name'		=> 'Scene ');
 
-$v['scene_00010'] = array(
+$v['scene_00011'] = array(
 		'duration'	=> 6,
 		'bg_color'	=> $v['color_blue'],
 		'camera'	=> array(
@@ -141,8 +164,8 @@ $v['scene_00010'] = array(
 /*
  * cao: wo cao!
  */
-$v['scene_00009'] = array(
-		'duration'	=> 1,
+$v['scene_00010'] = array(
+		'duration'	=> 2.5,
 		'bg_color'	=> $v['color_blue'],
 		'camera'	=> array(
 			array(0.4, 0.1, 0.5, 0.5, 1.6, 3),
@@ -155,7 +178,7 @@ $v['scene_00009'] = array(
 		'script'	=> array(
 			'set cao as kid at 0.16 0.27 size 0.35 ',
 			'look cao at 0 for 10 to 360 ',
-			'say cao at 0.25 for 0.75 speak wo cao ',
+			'say cao at 0.5 for 1.267 speak wo cao ',
 			),
 		'name'		=> 'Scene ');
 
@@ -163,7 +186,7 @@ $v['scene_00009'] = array(
  * cao: wo cao a! wo cao! ni shi shui a?
  */
 $v['scene_00008'] = array(
-		'duration'	=> 2,
+		'duration'	=> 3,
 		'bg_color'	=> $v['color_blue'],
 		'camera'	=> array(
 			array(0.4, 0.1, 0.5, 0.5, 1.6, 3),
@@ -176,7 +199,7 @@ $v['scene_00008'] = array(
 		'script'	=> array(
 			'set cao as kid at 0.16 0.27 size 0.35 ',
 			'look cao at 0 for 10 to 360 ',
-			'say cao at 0.25 for 1.7l speak wo cao a wo cao ni shi shui a ',
+			'say cao at 0.5 for 1.942 speak wo cao a wo cao ni shi shui a ',
 			),
 		'name'		=> 'Scene ');
 
@@ -184,7 +207,7 @@ $v['scene_00008'] = array(
  * cao: wo cao! ni dao di shi shui a?
  */
 $v['scene_00006'] = array(
-		'duration'	=> 2,
+		'duration'	=> 3,
 		'bg_color'	=> $v['color_blue'],
 		'camera'	=> array(
 			array(0.4, 0.1, 0.5, 0.5, 1.6, 3),
@@ -197,7 +220,7 @@ $v['scene_00006'] = array(
 		'script'	=> array(
 			'set cao as kid at 0.16 0.27 size 0.35 ',
 			'look cao at 0 for 10 to 360 ',
-			'say cao at 0.25 for 1.7l speak wo cao ni dao di shi shui a ',
+			'say cao at 0.5 for 1.739 speak wo cao ni dao di shi shui a ',
 			),
 		'name'		=> 'Scene ');
 
@@ -218,7 +241,27 @@ $v['scene_00004'] = array(
 		'script'	=> array(
 			'set cao as kid at 0.16 0.27 size 0.35 ',
 			'look cao at 0 for 10 to 360 ',
-			'say cao at 0.25 for 1.7l speak wo cao ni shui a ',
+			'say cao at 0.25 for 1.165 speak wo cao ni shui a ',
+			),
+		'name'		=> 'Scene ');
+
+$v['scene_00009'] = array(
+		'duration'	=> 3,
+		'bg_color'	=> $v['color_blue'],
+		'camera'	=> array(
+			array(-0.2, 0, 0.5, 0.5, 1.5, 3),
+			array(-0.2, 0, 0.5, 0.5, 1.5, 0),
+			),
+		'object'	=> array(
+			'room_taiyang',
+			'photo_taiyang_fanghuayuan',
+			'taiyang',
+			),
+		'script'	=> array(
+			'set taiyang as kid at 0.65 0.16 size 0.4 ',
+			'look taiyang at 0 for 3 to 180 ',
+			'sub taiyang at 0 for 3 with 1 body line003 3 ',
+			'say taiyang at 0.5 for 1.646 speak wo ri wo ri a ',
 			),
 		'name'		=> 'Scene ');
 
@@ -238,7 +281,7 @@ $v['scene_00007'] = array(
 			'set taiyang as kid at 0.65 0.16 size 0.4 ',
 			'look taiyang at 0 for 3 to 180 ',
 			'sub taiyang at 0 for 3 with 1 body line003 3 ',
-			'say taiyang at 0.5 for 2 speak wo ri a ni cao ba ',
+			'say taiyang at 0.5 for 2.082 speak wo ri a ni cao ba ',
 			),
 		'name'		=> 'Scene ');
 
@@ -258,7 +301,7 @@ $v['scene_00005'] = array(
 			'set taiyang as kid at 0.65 0.16 size 0.4 ',
 			'look taiyang at 0 for 3 to 180 ',
 			'sub taiyang at 0 for 2 with 1 body line003 3 ',
-			'say taiyang at 0.5 for 1 speak wo ri a ',
+			'say taiyang at 0.5 for 0.686 speak wo ri a ',
 			),
 		'name'		=> 'Scene ');
 
@@ -278,7 +321,7 @@ $v['scene_00003'] = array(
 			'set taiyang as kid at 0.65 0.16 size 0.4 ',
 			'look taiyang at 0 for 3 to 180 ',
 			'sub taiyang at 0 for 3 with 1 body line003 3 ',
-			'say taiyang at 0.5 for 2 speak wei cao a wo ri ',
+			'say taiyang at 0.5 for 1.730 speak wei cao a wo ri ',
 			),
 		'name'		=> 'Scene ');
 
