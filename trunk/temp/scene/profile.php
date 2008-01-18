@@ -7,10 +7,10 @@ else
 
 //	scene info
 $v['scene']['name'] = 'oneman_001';		//	name and episode are for file naming
-$v['scene']['episode'] = 2;			//	which episode of the series
+$v['scene']['episode'] = 3;			//	which episode of the series
 $v['scene']['res_x'] = 640;
 $v['scene']['res_y'] = 360;
-$v['scene']['fps'] = 10;
+$v['scene']['fps'] = 15;
 $v['scene']['subtitle'] = false;	//	render subtitle
 $v['scene']['duration'] = 3;		//	count in seconds
 
