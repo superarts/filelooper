@@ -6,9 +6,11 @@
  *      For example, if you are using vim under win32, 'edit' and 'make' are all you have to do.
  */
 
-$path = 'E:\download\Trixie_Teen_All_Pics\Pictures';
+$path = "/home/leo/\[Galitsin-news\]\ -\ 2004-06\ -\ 84\ Sets\ 800x1200/";
+$path = '/home/leo/Galitsin';
+$sep = '/';
 
-$process_count = 4;
+$process_count = 6;
 
 function handler($f, $process_index)
 {
@@ -17,17 +19,25 @@ function handler($f, $process_index)
     switch ($process_index)
     {
     case 1:
-        delete_all_ext($f, array('html', 'htm'));
+        //	delete_all_ext($f, array('html', 'htm'));
         break;
     case 2:
         //  delete_but_ext($f, array('jpg', 'jpeg'));
         break;
     case 3:
-        move_rename($f, $path);
+        //	move_rename($f, $path);
         break;
     case 4:
         //	rename_fill_number($f, 3);
-        break;
+		break;
+	case 5:
+		//	unzip_to($f, $path);
+		break;
+	case 6:
+		$s = substr($f, 0, -4);
+		//	echo "$s\n";
+		execute("rmdir '$s'");
+		break;
     }
 
     return;
@@ -55,11 +65,11 @@ function execute($s)
  */
 function move_rename($filename, $dest)
 {
-    global $path;
+    global $path, $sep;
 
     $source = substr($filename, strlen($path) + 1, strlen($filename) - strlen($path));
-    $source = str_replace("\\", '_', $source);
-    $source = "$dest\\$source";
+    $source = str_replace("$sep", '_', $source);
+    $source = "$dest$sep$source";
 
     execute("move \"$filename\" \"$source\"");
 }
@@ -137,22 +147,35 @@ function delete_but_ext($filename, $ext)
         execute("del \"$filename\" /f");
 }
 
+function unzip_to($file, $path)
+{
+	//	global $path, $sep;
+
+	$s = substr($file, 0, -4);
+	execute("mkdir '$s'");
+	//	echo "$s\n";
+	$s = "unzip '$file' -d '$s'";
+	execute($s);
+}
+
 function loop($path, $process_index)
 {
+	global $sep;
+
     if ($handle = opendir($path))
     {
         while (false !== ($filename = readdir($handle)))
         {
             if (($filename != '.') and ($filename != '..'))
             {
-                if (is_dir("$path\\$filename"))
+                if (is_dir("$path$sep$filename"))
                 {
-                    loop("$path\\$filename", $process_index);
+                    loop("$path$sep$filename", $process_index);
                 }
                 else
                 {
-                    //  echo "in $path found $path\\$filename\n";
-                    handler("$path\\$filename", $process_index);
+                    //  echo "in $path found $path$sep$filename\n";
+                    handler("$path$sep$filename", $process_index);
                 }
             }
         }
@@ -175,7 +198,7 @@ case "release":
 case "debug":
     echo "----start of debug----\n";
 
-	//  $extend = pathinfo("c:\\test\\abc.txt");
+	//  $extend = pathinfo("c:$septest$sepabc.txt");
     //  print_r($extend);
     
     //  echo rename_fill_number('1_23_245.bmp', g);
