@@ -1,0 +1,3 @@
+#!/bin/bash
+php subtitle_setup.php
+see test.png
