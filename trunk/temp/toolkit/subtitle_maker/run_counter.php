@@ -31,10 +31,11 @@ if (false)
 
 while (true)
 {
-	$index = str_pad($counter, $length, '0', STR_PAD_LEFT);
+	//	$index = str_pad($counter, $length, '0', STR_PAD_LEFT);
+	$index = $counter;
 	echo "\t$index, " . 
 	usleep(1000000 / $scale);
-	print_backspace($length + 3);
+	print_backspace($length + 3 + 8);
 	$counter++;
 }
 
